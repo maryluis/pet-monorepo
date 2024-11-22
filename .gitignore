@@ -1,0 +1,11 @@
+node_modules/
+lerna-debug.log
+npm-debug.log
+packages/*/lib
+packages/*/node_modules/
+.idea
+packages/frontend/node_modules/
+packages/frontend/lib/
+packages/backend/node_modules/
+packages/backend/lib/
+.vscode
