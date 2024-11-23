@@ -6,6 +6,9 @@ packages/*/node_modules/
 .idea
 packages/frontend/node_modules/
 packages/frontend/lib/
+packages/frontend/.DS_Store
+packages/.DS_Store
 packages/backend/node_modules/
 packages/backend/lib/
 .vscode
+.DS_Store
