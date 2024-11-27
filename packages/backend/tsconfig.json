@@ -1,9 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./lib"
+    "module": "ESNext",         // Використовуємо ES-модулі
+    "target": "ESNext",         // Остання версія JavaScript
+    "moduleResolution": "node", // Підтримка для Node.js
+    "esModuleInterop": true,    // Для сумісності з модулями CommonJS
+    "outDir": "./lib",         // Куди компілюються файли JavaScript
+    "rootDir": "./src",         // Коренева папка для TypeScript файлів
+    "allowJs": true,            // Дозволяє імпортувати JS файли разом з TS
+    "skipLibCheck": true        // Пропускає перевірку бібліотек
   },
-  "include": [
-    "./src"
-  ]
+  "include": ["src/**/*"],      // Включаємо всі файли в папці src
+  "exclude": ["node_modules"]   // Виключаємо node_modules
 }

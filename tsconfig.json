@@ -4,15 +4,24 @@
     "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
+    "outDir": "./lib",
+    "rootDir": "./packages",
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "target": "es6",
     "sourceMap": true,
-    "lib": [
+    "lib": [  
       "es6"
     ]
   },
+  "include": [
+    "packages/**/*"
+  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
