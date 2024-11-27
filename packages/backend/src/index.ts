@@ -7,7 +7,7 @@ const port = 3001;
 app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Hello from Backend!' });
+  res.json({ message: 'Hello from Ukraine!' });
 });
 
 app.listen(port, () => {

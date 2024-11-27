@@ -14,17 +14,17 @@ function App() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Отримуємо дані з бекенду за допомогою fetch
-    fetch('http://localhost:3001') // Переконайся, що бекенд працює на цьому порту
+    fetch('http://localhost:3001')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json(); // Перетворюємо відповідь в JSON
+        return response.json();
       })
       .then((data) => {
-        setData(data); // Записуємо отримані дані в state
-        setLoading(false); // Оновлюємо статус завантаження
+        setData(data);
+        console.log('checking');
+        setLoading(false);
       })
       .catch(() => {
         setError('Error fetching data');
