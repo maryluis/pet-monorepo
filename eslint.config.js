@@ -49,12 +49,20 @@ export default [
 
   {
     rules: {
-      'no-console': ['warn'],
       'react/react-in-jsx-scope': 0,
       'react/jsx-no-target-blank': 0,
       'jsx-quotes': ['error', 'prefer-double'],
       quotes: ['error', 'single'],
-      'space-before-function-paren': ['error', 'never'],
+      indent: ['error', 2],
+      'react/jsx-tag-spacing': [
+        'warn',
+        {
+          beforeSelfClosing: 'always',
+        },
+      ],
+      'react/jsx-indent': ['error', 2],
+      'react/jsx-indent-props': ['error', 2],
+      'object-curly-spacing': ['error', 'always'],
       'function-paren-newline': ['error', 'never'],
       'arrow-parens': ['error', 'always'],
       'space-before-blocks': ['error', 'always'],
