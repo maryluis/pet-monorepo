@@ -32,7 +32,6 @@ export default [
       globals: globals.browser,
     },
   },
-
   pluginJs.configs.recommended,
 
   ...tseslint.configs.recommended,
@@ -64,6 +63,8 @@ export default [
       'react/jsx-indent-props': ['error', 2],
       'object-curly-spacing': ['error', 'always'],
       'function-paren-newline': ['error', 'never'],
+      'react/no-unescaped-entities': 0,
+      '@typescript-eslint/no-require-imports': 0,
       'arrow-parens': ['error', 'always'],
       'space-before-blocks': ['error', 'always'],
       'no-multi-spaces': [
@@ -85,6 +86,18 @@ export default [
       ],
       'no-trailing-spaces': 'error',
       semi: ['error', 'always'],
+    },
+  },
+  {
+    files: [
+      '*.config.js',
+      '*.config.cjs',
+      'packages/frontend/*.config.js',
+      'packages/frontend/src/*.config.js',
+      'packages/frontend/src/*.config.cjs',
+    ],
+    rules: {
+      'no-undef': 'off',
     },
   },
 ];

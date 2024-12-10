@@ -1,69 +1,52 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { RegistrationPage, HomePage } from '@/Pages';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RegistrationPage, HomePage, LoginPage, ErrorPage } from '@/Pages';
 import { Paths } from '@/Paths';
 import './App.css';
+import './index.css';
 
-// interface IServerResponse {
-//   message: string;
-// }
+const router = createBrowserRouter([
+  {
+    path: Paths.home,
+    element: <HomePage />,
+  },
+  {
+    path: Paths.login,
+    element: <LoginPage />,
+  },
+  {
+    path: Paths.registration,
+    element: <RegistrationPage />,
+  },
+  {
+    path: '*',
+    element: <ErrorPage />,
+  },
+],
+{
+  future: {
+    v7_relativeSplatPath: true,
+    v7_partialHydration: true,
+    v7_startTransition: true,
+    v7_normalizeFormMethod: true,
+    v7_fetcherPersist: true,
+    v7_skipActionErrorRevalidation: true,
+  },
+});
 
 function App() {
-  // useEffect(() => {
-  //   fetch('http://localhost:3001')
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       setData(data);
-  //       console.log('checking');
-  //       setLoading(false);
-  //     })
-  //     .catch(() => {
-  //       setError('Error fetching data');
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // const createUser = async() => {
-  //   const userData = {
-  //     id: '123',
-  //     nickName: 'JohnDoe',
-  //     name: 'John',
-  //     password: 'password123',
-  //     confirmPassword: 'password123'
-  //   };
-
-  //   try {
-  //     const response = await fetch('http://localhost:3001/create-user', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(userData), // перетворюємо об'єкт в JSON
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log('User created successfully:', data);
-  //     } else {
-  //       const errorData = await response.json();
-  //       console.log('Error:', errorData.error);
-  //     }
-  //   } catch (error) {
-  //     console.error('Request failed:', error);
-  //   }
-  // };
-
   return (
-    <Router>
-      <Routes>
-        <Route path={Paths.home} element={<HomePage />} />
-        <Route path={Paths.registration} element={<RegistrationPage />} />
-      </Routes>
-    </Router>
+    <div
+      className="grid w-screen h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
+      style={{
+        gridTemplateRows: '50px 1fr 50px',
+      }}
+    >
+      <div className="w-full h-full bg-green-200" />
+      <div className="flex flex-col justify-center items-center h-full">
+        <RouterProvider router={router} />
+      </div>
+      <div className="w-full h-full bg-green-200" />
+    </div>
   );
 }
 

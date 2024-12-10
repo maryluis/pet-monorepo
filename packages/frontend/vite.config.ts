@@ -5,9 +5,16 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react(), eslint()],
+  css: {
+    postcss: './postcss.config.ts',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+  },
+  build: {
+    minify: 'esbuild', // використання esbuild для мінімізації
+    cssCodeSplit: true, // розділення CSS на окремі файли
   }
 });

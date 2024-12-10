@@ -7,7 +7,12 @@ interface IProps {
 const Button = (props: IProps) => {
   const { children, onClick } = props;
   return (
-    <button onClick={onClick}>{children}</button>
+    <button
+      className="transition ease-in-out delay-150 bg-emerald-500 hover:-translate-y-1 hover:scale-110 hover:bg-emerald-700 duration-300 text-green-50 outline-none"
+      onClick={onClick}
+    >
+      {children}
+    </button>
   );
 };
 
