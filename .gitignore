@@ -12,3 +12,4 @@ packages/backend/node_modules/
 packages/backend/lib/
 .vscode
 .DS_Store
+.plans

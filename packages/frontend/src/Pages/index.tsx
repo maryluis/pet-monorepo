@@ -1,6 +1,7 @@
-import RegistrationPage from './registration';
+import ErrorPage from './error';
 import HomePage from './home';
 import LoginPage from './login';
-import ErrorPage from './error';
+import ProfilePage from './profile';
+import RegistrationPage from './registration';
 
-export { RegistrationPage, HomePage, LoginPage, ErrorPage };
+export { ErrorPage, HomePage, LoginPage, ProfilePage, RegistrationPage, };

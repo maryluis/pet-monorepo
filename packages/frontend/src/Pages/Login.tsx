@@ -1,31 +1,57 @@
-import { useState } from 'react';
+import { useState,
+  useEffect
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// import API from '@/API';
-import Title from '@/Components/Title';
-import Button from '@/Components/Button';
-import Card from '@/Components/Card';
-import Input from '@/Components/Input';
-import Link from '@/Components/Link';
-import Paths from '@/Paths';
-// import { IUserRegistration } from '@../../types';
+import API from '@/api';
+import Title from '@/components/Title';
+import Button from '@/components/Button';
+import Card from '@/components/Card';
+import Input from '@/components/Input';
+import Link from '@/components/Link';
+import Paths from '@/paths';
+import { setTokenCookie, getTokenCookie } from '@/cookies';
+import { useErrors } from '@/hooks';
+import { useStore } from '@/zustand';
+import { IUserLogin } from '@../../types';
 
 export default function LoginPage() {
+  const addToken = useStore((state) => state.addToken);
+  const navigate = useNavigate();
   const [nickName, setNickname] = useState('');
   const handleSetNickname = (e) => setNickname(e.target.value);
+
+  const errorsHandler = useErrors();
 
   const [password, setPassword] = useState('');
   const handleSetPassword = (e) => setPassword(e.target.value);
 
-  // const [confirmPassword, setConfirmPassword] = useState('');
-  // const handleSetConfirmPassword = (e) => setConfirmPassword(e.target.value);
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await getTokenCookie();
+
+      if (token) {
+        navigate(Paths.profile);
+      }
+    };
+
+    checkToken();
+  }, [navigate]);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const userData = {
+    const userData: IUserLogin = {
       nickName, password
     };
-    // const res = await API.createUser(userData);
-    console.log(userData);
+    try {
+      const data = await API.login(userData);
+      await setTokenCookie(data.token);
+      addToken(data.token);
+      navigate(Paths.profile);
+    }
+    catch (e) {
+      errorsHandler(e);
+    }
   };
 
   return (

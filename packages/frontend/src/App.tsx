@@ -1,21 +1,26 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RegistrationPage, HomePage, LoginPage, ErrorPage } from '@/Pages';
+import { ErrorPage, HomePage, LoginPage, ProfilePage, RegistrationPage, } from '@/Pages';
 import { Paths } from '@/Paths';
+import { PrivateLayout, PublicLayout } from '@/layouts';
 import './App.css';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     path: Paths.home,
-    element: <HomePage />,
+    element: <PublicLayout><HomePage /></PublicLayout>,
   },
   {
     path: Paths.login,
-    element: <LoginPage />,
+    element: <PublicLayout><LoginPage /></PublicLayout>,
+  },
+  {
+    path: Paths.profile,
+    element: <PrivateLayout><ProfilePage /></PrivateLayout>,
   },
   {
     path: Paths.registration,
-    element: <RegistrationPage />,
+    element: <PublicLayout><RegistrationPage /></PublicLayout>,
   },
   {
     path: '*',
@@ -35,18 +40,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div
-      className="grid w-screen h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
-      style={{
-        gridTemplateRows: '50px 1fr 50px',
-      }}
-    >
-      <div className="w-full h-full bg-green-200" />
-      <div className="flex flex-col justify-center items-center h-full">
-        <RouterProvider router={router} />
-      </div>
-      <div className="w-full h-full bg-green-200" />
-    </div>
+    <RouterProvider router={router} />
   );
 }
 

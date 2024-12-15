@@ -7,6 +7,9 @@
   "license": "ISC",
   "main": "lib/backend.js",
   "type": "module",
+  "_moduleAliases": {
+    "@": "src"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -24,7 +27,10 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "pg": "^8.13.1",
     "uuid": "^11.0.3"
   },
