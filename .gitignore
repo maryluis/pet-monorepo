@@ -9,6 +9,7 @@ packages/frontend/lib/
 packages/frontend/.DS_Store
 packages/.DS_Store
 packages/backend/node_modules/
+packages/backend/.env
 packages/backend/lib/
 .vscode
 .DS_Store
