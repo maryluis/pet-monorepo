@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   build: {
-    minify: 'esbuild', // використання esbuild для мінімізації
-    cssCodeSplit: true, // розділення CSS на окремі файли
+    minify: 'esbuild',
+    cssCodeSplit: true,
   }
 });

@@ -63,17 +63,20 @@ const RegistrationPage = () => {
         <form className="w-full" onSubmit={handleSubmit}>
           <Input
             label="Nickname"
+            name="nickName"
             onChange={handleSetNickname}
             value={nickName}
           />
           <Input
             label="Password"
+            name="password"
             onChange={handleSetPassword}
             type="password"
             value={password}
           />
           <Input
             label="Confirm password"
+            name="confirmPassword"
             onChange={handleSetConfirmPassword}
             type="password" value={confirmPassword}
           />

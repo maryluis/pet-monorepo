@@ -9,8 +9,7 @@
   "license": "ISC",
   "main": "lib/frontend.js",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
@@ -20,10 +19,14 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "node ./__tests__/frontend.test.js"
+    "test:component": "cypress run --component",
+    "test:e2e": "cypress run --e2e",
+    "test:all": "npm run test:component && npm run test:e2e"
   },
   "dependencies": {
+    "@cypress/react18": "^2.0.1",
     "@fullhuman/postcss-purgecss": "^7.0.2",
+    "@testing-library/cypress": "^10.0.2",
     "cssnano": "^7.0.6",
     "date-fns": "^4.1.0",
     "js-cookie": "^3.0.5",
@@ -33,13 +36,18 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@cypress/react": "^8.0.2",
+    "@cypress/vite-dev-server": "^5.2.1",
+    "@cypress/webpack-dev-server": "^3.11.0",
     "@eslint/js": "^9.15.0",
+    "@types/cypress": "^1.1.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
+    "cypress": "^13.16.1",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-css-modules": "^2.12.0",
     "eslint-plugin-react-hooks": "^5.0.0",

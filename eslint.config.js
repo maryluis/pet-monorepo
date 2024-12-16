@@ -64,6 +64,7 @@ export default [
       'object-curly-spacing': ['error', 'always'],
       'function-paren-newline': ['error', 'never'],
       'react/no-unescaped-entities': 0,
+      '@typescript-eslint/no-namespace': 0,
       'arrow-parens': 0,
       '@typescript-eslint/no-require-imports': 0,
       '@typescript-eslint/no-empty-object-type': 0,
