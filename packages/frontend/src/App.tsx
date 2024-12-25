@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ErrorPage, HomePage, LoginPage, ProfilePage, RegistrationPage, } from '@/Pages';
-import { Paths } from '@/Paths';
+import { ErrorPage, HomePage, LoginPage, ProfilePage, RegistrationPage, } from '@/pages';
+import { Paths } from '@/paths';
 import { PrivateLayout, PublicLayout } from '@/layouts';
 import './App.css';
 import './index.css';

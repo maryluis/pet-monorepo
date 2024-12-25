@@ -1,31 +1,40 @@
 export interface IUser {
   id: string,
-  nickName: string,
+  nickname: string,
   token: string,
-  tasks: ITask[],
 }
 
 export interface IRegisteredUser {
   id: string,
-  nickName: string,
+  nickname: string,
   hashedPassword: string,
-  tasks: ITask[],
 }
 
 export interface IUserRegistration {
   confirmPassword: string,
-  nickName: string,
+  nickname: string,
   password: string,
 }
 
 export interface IUserLogin {
-  nickName: string;
+  nickname: string;
   password: string;
 }
 
-export interface ITask {
-  description: string,
-  id: string,
-  isDone: boolean,
+export interface IWish {
+  id: string;
+  title: string;
+  description?: string;
+  authorId: string;
+  executorId?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  assigned: boolean;
+  is_received: boolean;
+}
+
+export interface IWishCreateData {
+  authorId: string,
   title: string,
+  description?: string,
 }

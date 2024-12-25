@@ -1,3 +1,3 @@
-import { ITask, IUser, IUserRegistration, IRegisteredUser } from './interfaces';
+import { IWish, IUser, IUserRegistration, IRegisteredUser, IWishCreateData } from './interfaces';
 
-export { ITask, IUser, IUserRegistration, IRegisteredUser };
+export { IWish, IUser, IUserRegistration, IRegisteredUser, IWishCreateData };

@@ -29,7 +29,7 @@ const RegistrationPage = () => {
     checkToken();
   }, [navigate]);
 
-  const [nickName, setNickname] = useState('');
+  const [nickname, setNickname] = useState('');
   const handleSetNickname = (e) => setNickname(e.target.value);
 
   const [password, setPassword] = useState('');
@@ -41,11 +41,11 @@ const RegistrationPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData: IUserRegistration = {
-      nickName, password, confirmPassword
+      nickname, password, confirmPassword
     };
     try {
       await API.createUser(userData);
-      const loginData = { nickName, password };
+      const loginData = { nickname, password };
       const data = await API.login(loginData);
       if (data.token) {
         await setTokenCookie(data.token);
@@ -63,9 +63,9 @@ const RegistrationPage = () => {
         <form className="w-full" onSubmit={handleSubmit}>
           <Input
             label="Nickname"
-            name="nickName"
+            name="nickname"
             onChange={handleSetNickname}
-            value={nickName}
+            value={nickname}
           />
           <Input
             label="Password"

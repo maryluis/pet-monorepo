@@ -4,7 +4,7 @@ import { handleError } from '@/helpers';
 
 const BASE_URL = 'http://localhost:3001';
 
-const createUser = async(userData: IUserRegistration) => {
+const createUser = async (userData: IUserRegistration) => {
   const url = `${BASE_URL}${URLS.createUser}`;
   try {
     await fetch(url, {
@@ -19,7 +19,26 @@ const createUser = async(userData: IUserRegistration) => {
   }
 };
 
-const login = async(userData: IUserLogin) => {
+const createWish = async (dataWish: { title: string, description: string }, token) => {
+  const url = `${BASE_URL}${URLS.createWish}`;
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataWish),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+const login = async (userData: IUserLogin) => {
   const url = `${BASE_URL}${URLS.login}`;
   try {
     const response = await fetch(url, {
@@ -49,7 +68,7 @@ const getHolidaysByCountryYear = async (year, countryCode = 'UA', ) => {
   }
 };
 
-const getProfile = async (token: string,) => {
+const getProfile = async (token: string) => {
   const URL = `${BASE_URL}${URLS.profile}` as string;
   const response = await fetch(URL, {
     method: 'GET',
@@ -68,6 +87,7 @@ const getProfile = async (token: string,) => {
 
 export const API = {
   createUser,
+  createWish,
   getHolidaysByCountryYear,
   getProfile,
   login,

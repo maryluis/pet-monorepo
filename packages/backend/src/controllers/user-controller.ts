@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { createUserService, getProfileService, loginService } from '../services';
-import { handleError } from '../helpers';
+import { createUserService, getProfileService, loginService } from '@/services';
+import { handleError } from '@/helpers';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -12,8 +12,8 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { nickName, password } = req.body;
-  if (!nickName || !password) {
+  const { nickname, password } = req.body;
+  if (!nickname || !password) {
     return res.status(400).json({ message: 'NickName and Password are required' });
   }
   try {

@@ -1,29 +1,29 @@
-import { v4 as uuid4 } from 'uuid';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { CustomError } from '../helpers';
-import { getUserById } from '../db';
+import { CustomError } from '@/helpers';
+import { User } from '@/models';
+import { getUserById } from '@/db-actions';
 import { nicknameRegex, passwordRegex } from '../../../constants';
-import pool from '../../db';
+
 import { IUserRegistration, IRegisteredUser, IUserLogin, IUser } from '../../types';
 
 export const createUserService = async (data: IUserRegistration): Promise<IRegisteredUser> => {
-  const { nickName, password, confirmPassword } = data;
+  const { nickname, password, confirmPassword } = data;
 
   if (password !== confirmPassword) {
     const error = new CustomError('Passwords do not match', 400);
     throw error;
   }
 
-  const usersWithThisNickname = await pool.query('SELECT * FROM users WHERE nickName = $1', [nickName]);
-  const user = usersWithThisNickname.rows[0];
-  if (user) {
+  const userExist = await User.findOne({
+    where: { nickname },
+  });
+  if (userExist) {
     const error = new CustomError('Nickname is already taken', 409);
     throw error;
   }
 
-  if (!nicknameRegex.test(nickName)) {
+  if (!nicknameRegex.test(nickname)) {
     const error = new CustomError('Nickname is invalid', 422);
     throw error;
   }
@@ -33,27 +33,24 @@ export const createUserService = async (data: IUserRegistration): Promise<IRegis
     throw error;
   }
 
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  const id = uuid4();
-
-  const result = await pool.query('INSERT INTO users(id, nickName, password) VALUES($1, $2, $3) RETURNING *',
-    [id, nickName, hashedPassword]);
-
-  return result.rows[0];
+  const newUser = await User.create({ nickname, password });
+  return newUser;
 };
 
 export const loginService = async ( data: IUserLogin): Promise<IUser> => {
-  const { nickName, password } = data;
-  const result = await pool.query('SELECT * FROM users WHERE nickName = $1', [nickName]);
-  const user = result.rows[0];
+  const { nickname, password } = data;
+  const result = await User.findOne({
+    where: { nickname },
+  });
+
+  const user = result.get();
 
   if (!user) {
     const error = new CustomError('User not found or invalid credentials', 400);
     throw error;
   }
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await result.validatePassword(password);
   if (!isMatch) {
     const error = new CustomError('User not found or invalid credentials', 400);
     throw error;
@@ -73,4 +70,3 @@ export const getProfileService = async (id: string) => {
     throw error;
   }
 };
-

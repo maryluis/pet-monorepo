@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { getTokenCookie, deleteTokenCookie } from '@/cookies';
@@ -42,7 +42,8 @@ export const PrivateLayout = (props: { children: ReactNode }) => {
   const nextHoliday: holidayT | null = useNearestHoliday();
 
   const navigate = useNavigate();
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     const checkToken = async () => {
       const token = await getTokenCookie();
 

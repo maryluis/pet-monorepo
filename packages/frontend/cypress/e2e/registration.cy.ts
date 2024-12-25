@@ -14,12 +14,12 @@ describe('User Registration', () => {
   it('should successfully register a new user', () => {
     cy.fixture('user_registration').then((userData) => {
       cy.visit('/registration');
-      cy.get('input[name="nickName"]').type(userData.nickName);
+      cy.get('input[name="nickname"]').type(userData.nickname);
       cy.get('input[name="password"]').type(userData.password);
       cy.get('input[name="confirmPassword"]').type(userData.password);
       cy.contains('button', 'Create').click();
       cy.url().should('eq', 'http://localhost:5173/profile');
-      cy.contains(`Hello, ${userData.nickName}`).should('be.visible');
+      cy.contains(`Hello, ${userData.nickname}`).should('be.visible');
     });
   });
 });

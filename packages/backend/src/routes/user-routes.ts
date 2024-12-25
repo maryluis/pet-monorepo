@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { createUser, login, getProfile } from '../controllers';
-import { authenticateToken } from '../middlewares';
+import { createUser, login, getProfile } from '@/controllers';
+import { authenticateToken } from '@/middlewares';
 import API_URLS from '../../../api-urls';
 
 const router = Router();

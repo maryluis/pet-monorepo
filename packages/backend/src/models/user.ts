@@ -1,0 +1,75 @@
+import { Model, DataTypes } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcryptjs';
+
+import sequelize from '@/config/database';
+import Wish from './wish';
+
+interface UserAttributes {
+  id: string;
+  nickname: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date,
+  myWishes?: Wish[];
+  assignedWishes?: Wish[];
+}
+
+class User extends Model<UserAttributes> {
+  public readonly myWishes!: Wish[];
+  public readonly assignedWishes!: Wish[];
+}
+
+User.init({
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: uuidv4(),
+  },
+  nickname: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'Nickname cannot be empty',
+      },
+      len: {
+        args: [8, 50],
+        msg: 'Nickname must be between 3 and 50 characters long',
+      },
+    },
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'Password cannot be empty',
+      },
+      len: {
+        args: [8, 20],
+        msg: 'Password must be between 8 and 20 characters long',
+      },
+    },
+  },
+},
+{
+  sequelize,
+  tableName: 'users',
+  timestamps: true,
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+});
+
+User.beforeCreate(async (user) => {
+  if (user.password) {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+  }
+});
+
+User.prototype.validatePassword = async function (password: string): Promise<boolean> {
+  return bcrypt.compare(password, this.password);
+};
+
+export default User;

@@ -18,7 +18,7 @@ import { IUserLogin } from '@../../types';
 export default function LoginPage() {
   const addToken = useStore((state) => state.addToken);
   const navigate = useNavigate();
-  const [nickName, setNickname] = useState('');
+  const [nickname, setNickname] = useState('');
   const handleSetNickname = (e) => setNickname(e.target.value);
 
   const errorsHandler = useErrors();
@@ -41,7 +41,7 @@ export default function LoginPage() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     const userData: IUserLogin = {
-      nickName, password
+      nickname, password
     };
     try {
       const data = await API.login(userData);
@@ -62,7 +62,7 @@ export default function LoginPage() {
           <Input
             label="Nickname"
             onChange={handleSetNickname}
-            value={nickName}
+            value={nickname}
           />
           <Input
             label="Password"

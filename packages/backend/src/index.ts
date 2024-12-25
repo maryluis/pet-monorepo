@@ -1,8 +1,9 @@
+import 'reflect-metadata';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { userRoutes } from './routes';
+import { userRoutes, wishRoutes } from './routes';
 import 'module-alias/register';
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('', userRoutes);
+app.use('', wishRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

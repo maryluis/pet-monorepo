@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "MarriaHlam",
+    "password": "rusofob",
+    "database": "petTasks_db",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432,
+    "logging": false
+  },
+  "test": {
+    "username": "MarriaHlam",
+    "password": "rusofob",
+    "database": "petTasks_db_test",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432,
+    "logging": false
+  },
+  "production": {
+    "username": "MarriaHlam",
+    "password": "rusofob",
+    "database": "petTasks_db_prod",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432,
+    "logging": false
+  }
+}

@@ -62,7 +62,7 @@ export default [
       'react/jsx-indent': ['error', 2],
       'react/jsx-indent-props': ['error', 2],
       'object-curly-spacing': ['error', 'always'],
-      'function-paren-newline': ['error', 'never'],
+      'function-paren-newline': 0,
       'react/no-unescaped-entities': 0,
       '@typescript-eslint/no-namespace': 0,
       'arrow-parens': 0,
