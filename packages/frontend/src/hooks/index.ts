@@ -4,11 +4,11 @@ import { holidayT } from '@/types';
 import { getNearestHoliday } from '@/helpers';
 import useErrors from './use-errors';
 
-const useNearestHoliday: holidayT | null = () => {
+const useNearestHoliday: holidayT | null = (countryCode: string = 'US') => {
   const [nextHoliday, setNextHoliday] = useState<holidayT | null>(null);
   useEffect(() => {
     const getHoliday = async () => {
-      const res = await getNearestHoliday();
+      const res = await getNearestHoliday(countryCode);
       if (res) {
         setNextHoliday(res);
       }

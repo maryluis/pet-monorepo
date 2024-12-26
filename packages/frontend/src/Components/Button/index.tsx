@@ -1,17 +1,37 @@
 import type { ReactNode } from 'react';
+import classNames from 'classnames';
 
 interface IProps {
   children: ReactNode | string,
+  loading?: bool,
   onClick: () => void,
 }
 const Button = (props: IProps) => {
-  const { children, onClick } = props;
+  const { children, loading = false, onClick } = props;
   return (
     <button
-      className="px-2 py-1 h-9 transition ease-in-out delay-150 bg-emerald-500 hover:-translate-y-1 hover:scale-110 hover:bg-emerald-700 duration-300 text-green-50 outline-none"
+      className={
+        classNames({
+          'outline-0': true,
+          'border-0': true,
+          'focus:outline-0': true,
+          'active:outline-0': true,
+          'px-2': true,
+          'py-1 ': true,
+          'h-9': true,
+          'transition-all': true,
+          'min-w-24': true,
+          'duration-150': true,
+          'bg-emerald-500 ': true,
+          'text-green-50': true,
+          'hover:bg-emerald-700': !loading,
+          'cursor-progress': loading,
+        })
+      }
+      disabled={loading}
       onClick={onClick}
     >
-      {children}
+      { children }
     </button>
   );
 };

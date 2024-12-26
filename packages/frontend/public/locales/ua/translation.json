@@ -1,0 +1,15 @@
+{
+  "confirmPassword": "Підтвердити пароль",
+  "congratulations": "Вітаємо!",
+  "create": "Створити",
+  "createAccount": "Створити новий акаунт",
+  "dontForgetGifts": "Не забудь придбати подарунки для близьких!",
+  "hasAccount": "Вже маю акаунт",
+  "hello": "Привіт",
+  "login": "Вхід",
+  "nextHoliday": "Наступне свято - {{holidayName}} відбудеться {{holidayDate}} ",
+  "nickname": "Нікнейм",
+  "nicknameTaken": "Цей нікнейм вже зайнятий",
+  "password": "Пароль",
+  "todayHoliday": "Сьогодні {{holidayName}}"
+}

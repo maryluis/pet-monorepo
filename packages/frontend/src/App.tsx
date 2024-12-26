@@ -1,9 +1,14 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 import { ErrorPage, HomePage, LoginPage, ProfilePage, RegistrationPage, } from '@/pages';
 import { Paths } from '@/paths';
 import { PrivateLayout, PublicLayout } from '@/layouts';
 import './App.css';
 import './index.css';
+import '@/i18n';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -40,7 +45,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 

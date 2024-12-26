@@ -1,0 +1,15 @@
+{
+  "confirmPassword": "Confirm Password",
+  "congratulations": "Congratulations!",
+  "create": "Create",
+  "createAccount": "Create a new account",
+  "dontForgetGifts": "Don't forget to buy gifts for your loved ones!",
+  "hasAccount": "Has an account",
+  "hello": "Hello",
+  "login": "Login",
+  "nextHoliday": "The next holiday is {{holidayName}} on {{holidayDate}} ",
+  "nickname": "Nickname",
+  "nicknameTaken": "Nickname is already taken",
+  "password": "Password",
+  "todayHoliday": "Today is a {{holidayName}}"
+}

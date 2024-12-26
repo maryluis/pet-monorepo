@@ -1,21 +1,60 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useMutation } from 'react-query';
 
 import API from '@/api';
 import Title from '@/components/Title';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
-import Input from '@/components/Input';
+import { ReactFormInput } from '@/components/Input';
 import Link from '@/components/Link';
 import Paths from '@/paths';
 import { getTokenCookie, setTokenCookie } from '@/cookies';
 import { useErrors } from '@/hooks';
 import { IUserRegistration } from '@../../types';
+import { nicknameRegex, passwordRegex } from '../../../constants';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const errorsHandler = useErrors();
+  const [error, setError] = useState('');
+
+  const { mutate, isLoading: loadingRegistration } = useMutation(
+    (userData: IUserRegistration) => API.createUser(userData), {
+      onSuccess: async (_, variables) => {
+        const loginData = { nickname: variables.nickname, password: variables.password };
+        mutateLogin(loginData);
+      },
+      onError: async (error: Error) => {
+        const res = await errorsHandler(error);
+        setError(res?.message);
+      },
+    }
+  );
+
+  const { mutate: mutateLogin, isLoading: loadingLogin } = useMutation(
+    (loginData: IUserRegistration) => API.login(loginData), {
+      onSuccess: async (data) => {
+        if (data.token) {
+          await setTokenCookie(data.token);
+          navigate(Paths.profile);
+        }
+      },
+      onError: async (error: Error) => {
+        const res = await errorsHandler(error);
+        setError(res?.message);
+      },
+    }
+  );
+
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<IUserRegistration>(
+    {
+      mode: 'onSubmit',
+    }
+  );
 
   useEffect(() => {
     const checkToken = async () => {
@@ -29,65 +68,53 @@ const RegistrationPage = () => {
     checkToken();
   }, [navigate]);
 
-  const [nickname, setNickname] = useState('');
-  const handleSetNickname = (e) => setNickname(e.target.value);
-
-  const [password, setPassword] = useState('');
-  const handleSetPassword = (e) => setPassword(e.target.value);
-
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const handleSetConfirmPassword = (e) => setConfirmPassword(e.target.value);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userData: IUserRegistration = {
-      nickname, password, confirmPassword
-    };
+  const onSubmit: SubmitHandler<IFormInput> = async (userData: IUserRegistration) => {
     try {
-      await API.createUser(userData);
-      const loginData = { nickname, password };
-      const data = await API.login(loginData);
-      if (data.token) {
-        await setTokenCookie(data.token);
-        navigate(Paths.profile);
-      }
+      await mutate(userData);
     } catch (e) {
-      errorsHandler(e);
+      const res = await errorsHandler(e);
+      setError(res);
     }
   };
 
   return (
     <Card>
-      <>
-        <Title>Create a new account</Title>
-        <form className="w-full" onSubmit={handleSubmit}>
-          <Input
-            label="Nickname"
-            name="nickname"
-            onChange={handleSetNickname}
-            value={nickname}
-          />
-          <Input
-            label="Password"
-            name="password"
-            onChange={handleSetPassword}
-            type="password"
-            value={password}
-          />
-          <Input
-            label="Confirm password"
-            name="confirmPassword"
-            onChange={handleSetConfirmPassword}
-            type="password" value={confirmPassword}
-          />
-          <div className="flex justify-end">
-            <Link path={Paths.login}>Has an account</Link>
-          </div>
-          <div className="mt-4 flex justify-center">
-            <Button onClick={handleSubmit}>Create</Button>
-          </div>
-        </form>
-      </>
+      <Title>{t('createAccount')}</Title>
+      <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <ReactFormInput
+          errors={errors}
+          label={t('nickname')}
+          name="nickname"
+          pattern={nicknameRegex}
+          register={register}
+          required
+        />
+        <ReactFormInput
+          errors={errors}
+          label={t('password')}
+          name="password"
+          pattern={passwordRegex}
+          register={register}
+          required
+          type="password"
+        />
+        <ReactFormInput
+          errors={errors}
+          label={t('confirmPassword')}
+          name="confirmPassword"
+          register={register}
+          required
+          type="password"
+          validate={(value) => value === watch('password') || 'Passwords do not match'}
+        />
+        <div className="flex justify-between">
+          <div className="text-pink-600 h-6">{error}</div>
+          <Link path={Paths.login}>{t('hasAccount')}</Link>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <Button loading={loadingRegistration || loadingLogin} onClick={handleSubmit(onSubmit)}>{t('create')}</Button>
+        </div>
+      </form>
     </Card>);
 };
 

@@ -1,88 +1,77 @@
+import axios from 'axios';
+
 import { IUserRegistration, IUserLogin } from '@../../types';
 import URLS from '../../../api-urls';
 import { handleError } from '@/helpers';
 
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  timeout: 1000,
+  headers: { 'Content-Type': 'application/json' },
+});
 
 const createUser = async (userData: IUserRegistration) => {
-  const url = `${BASE_URL}${URLS.createUser}`;
   try {
-    await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+    const response = await axiosInstance.post(URLS.createUser, userData);
+    return response.data;
   } catch (error) {
     handleError(error);
   }
 };
 
-const createWish = async (dataWish: { title: string, description: string }, token) => {
-  const url = `${BASE_URL}${URLS.createWish}`;
+const createWish = async (dataWish: { title: string, description: string }, token: string) => {
   try {
-    const response = await fetch(url, {
-      method: 'POST',
+    const response = await axiosInstance.post(URLS.createWish, dataWish, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(dataWish),
     });
 
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     handleError(error);
   }
 };
 
 const login = async (userData: IUserLogin) => {
-  const url = `${BASE_URL}${URLS.login}`;
   try {
-    const response = await fetch(url, {
-      method: 'POST',
+    const response = await axiosInstance.post(URLS.login, userData, {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData),
     });
 
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     handleError(error);
   }
 };
 
-const getHolidaysByCountryYear = async (year, countryCode = 'UA', ) => {
+const getHolidaysByCountryYear = async (year: number, countryCode: string = 'UA') => {
   try {
-    const response = await fetch(`https://date.nager.at/api/v3/publicholidays/${year}/${countryCode}`, {
-      method: 'GET',
-    });
-    const holidays = response.json();
-    return holidays;
+    const response = await axios.get(`${import.meta.env.VITE_DATE_URL}${year}/${countryCode}`);
+    return response.data;
   } catch (error) {
     handleError(error);
   }
 };
 
 const getProfile = async (token: string) => {
-  const URL = `${BASE_URL}${URLS.profile}` as string;
-  const response = await fetch(URL, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-  });
-  if (response.status === 401) {
-    return 401;
-  }
-  const content = await response.json();
+  try {
+    const response = await axiosInstance.get(URLS.profile, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
 
-  return content;
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 export const API = {
