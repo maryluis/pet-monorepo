@@ -1,4 +1,8 @@
+import { Op } from 'sequelize';
+
+import sequelize from '@/config/database';
 import { User, Wish } from '@/models';
+import { handleError } from '@/helpers';
 
 export const getUserById = async (id: string) => {
   try {
@@ -24,8 +28,7 @@ export const getUserById = async (id: string) => {
 
     return user;
   } catch (error) {
-    console.error('Error getting user by id:', error);
-    throw error;
+    handleError(error);
   }
 };
 
@@ -36,3 +39,45 @@ export const findUserById = async (userId: string) => {
   const user = result.get();
   return !!user;
 };
+
+export const findUserByPartialSearch = async (partialSearch: string, page = 1, pageSize = 10) => {
+  try {
+    const offset = (page - 1) * pageSize;
+    const users = await User.findAll({
+      attributes: [
+        'id',
+        'nickname',
+        [
+          sequelize.fn('COUNT', sequelize.col('myWishes.id')),
+          'wishesCount'
+        ]
+      ],
+      include: [
+        {
+          model: Wish,
+          as: 'myWishes',
+          required: false,
+          attributes: [],
+        }
+      ],
+      where: {
+        nickname: {
+          [Op.iLike]: `%${partialSearch}%`,
+        },
+      },
+      order: [
+        [sequelize.col('wishesCount'), 'DESC'],
+      ],
+      subQuery: false,
+      group: ['User.id'],
+      offset,
+      limit: pageSize,
+    });
+
+    const hasMore = users.length === pageSize;
+    return { users, hasMore };
+  } catch (error) {
+    handleError(error);
+  }
+};
+

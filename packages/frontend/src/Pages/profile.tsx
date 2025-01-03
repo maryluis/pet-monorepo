@@ -35,7 +35,6 @@ const ProfilePage = () => {
     () => API.getProfile(token),
     {
       enabled: !!token,
-      onSuccess: (res) => console.log(res),
       onError: async (err: Error) => {
         errorsHandler(err);
         if (err.message === 'Unauthorized') {

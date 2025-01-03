@@ -1,5 +1,4 @@
 import { Model, DataTypes } from 'sequelize';
-import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
 
 import sequelize from '@/config/database';
@@ -24,7 +23,7 @@ User.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
-    defaultValue: uuidv4(),
+    defaultValue: DataTypes.UUIDV4
   },
   nickname: {
     type: DataTypes.STRING,
@@ -34,7 +33,7 @@ User.init({
         msg: 'Nickname cannot be empty',
       },
       len: {
-        args: [8, 50],
+        args: [3, 50],
         msg: 'Nickname must be between 3 and 50 characters long',
       },
     },

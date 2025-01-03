@@ -5,12 +5,13 @@ interface IProps {
   label?: string,
   name?: string,
   onChange: () => void,
+  placeholder?: string,
   type?: 'text' | 'password',
   value: string,
 }
 
 export const Input = (props: IProps) =>{
-  const { label = '', name = '', onChange, type = 'text', value } = props;
+  const { label = '', name = '', onChange, placeholder, type = 'text', value } = props;
   return (
     <div className="my-2 flex flex-col">
       <label className="text-emerald-700 text-left my-2">{label}</label>
@@ -18,6 +19,7 @@ export const Input = (props: IProps) =>{
         className="disabled:border-slate-200 invalid:border-pink-500 invalid:text-pink-600 h-10 pl-4 shadow-md caret-blue-500 focus:caret-emerald-700 focus:outline-none"
         name={name}
         onChange={onChange}
+        placeholder={placeholder}
         type={type}
         value={value}
       />

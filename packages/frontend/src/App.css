@@ -5,6 +5,18 @@
   transition: filter 300ms;
 }
 
+* {
+  transition: all 0.3s ease;
+}
+
+header {
+  background-color: transparent;
+}
+
+header:hover {
+background-color: rgba(0, 0, 0, 0.2);
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

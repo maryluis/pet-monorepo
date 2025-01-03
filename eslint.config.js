@@ -23,13 +23,24 @@ export default [
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: 'module',
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+        ...globals.es2021,
+        ...globals.browser,
+      },
     },
   },
 
   {
     files: ['packages/frontend/src/**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+        ...globals.es2021,
+        ...globals.browser,
+      },
     },
   },
   pluginJs.configs.recommended,
@@ -52,7 +63,6 @@ export default [
       'react/jsx-no-target-blank': 0,
       'jsx-quotes': ['error', 'prefer-double'],
       quotes: ['error', 'single'],
-      indent: ['error', 2],
       'react/jsx-tag-spacing': [
         'warn',
         {
@@ -62,9 +72,11 @@ export default [
       'react/jsx-indent': ['error', 2],
       'react/jsx-indent-props': ['error', 2],
       'object-curly-spacing': ['error', 'always'],
+      'no-undef': 'off',
       'function-paren-newline': 0,
       'react/no-unescaped-entities': 0,
       '@typescript-eslint/no-namespace': 0,
+      indent: ['error', 2],
       'arrow-parens': 0,
       '@typescript-eslint/no-require-imports': 0,
       '@typescript-eslint/no-empty-object-type': 0,
@@ -99,7 +111,7 @@ export default [
       'packages/frontend/src/*.config.cjs',
     ],
     rules: {
-      'no-undef': 'off',
+      'no-undef': 0,
     },
   },
 ];

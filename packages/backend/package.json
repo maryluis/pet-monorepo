@@ -7,12 +7,12 @@
   "license": "ISC",
   "main": "lib/backend.js",
   "type": "module",
-  "_moduleAliases": {
-    "@": "src"
-  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
+  },
+  "_moduleAliases": {
+    "@": "src"
   },
   "files": [
     "lib"

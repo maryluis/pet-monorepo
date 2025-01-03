@@ -11,8 +11,10 @@ import Card from '@/components/Card';
 import { ReactFormInput } from '@/components/Input';
 import Link from '@/components/Link';
 import Paths from '@/paths';
+import AuthFormContainer from '@/components/AuthFormContainer';
 import { getTokenCookie, setTokenCookie } from '@/cookies';
 import { useErrors } from '@/hooks';
+import { useStore } from '@/zustand';
 import { IUserRegistration } from '@../../types';
 import { nicknameRegex, passwordRegex } from '../../../constants';
 
@@ -21,6 +23,7 @@ const RegistrationPage = () => {
   const { t } = useTranslation();
   const errorsHandler = useErrors();
   const [error, setError] = useState('');
+  const addToken = useStore((state) => state.addToken);
 
   const { mutate, isLoading: loadingRegistration } = useMutation(
     (userData: IUserRegistration) => API.createUser(userData), {
@@ -40,6 +43,7 @@ const RegistrationPage = () => {
       onSuccess: async (data) => {
         if (data.token) {
           await setTokenCookie(data.token);
+          addToken(data.token);
           navigate(Paths.profile);
         }
       },
@@ -68,7 +72,7 @@ const RegistrationPage = () => {
     checkToken();
   }, [navigate]);
 
-  const onSubmit: SubmitHandler<IFormInput> = async (userData: IUserRegistration) => {
+  const onSubmit: SubmitHandler<IUserRegistration> = async (userData: IUserRegistration) => {
     try {
       await mutate(userData);
     } catch (e) {
@@ -78,44 +82,47 @@ const RegistrationPage = () => {
   };
 
   return (
-    <Card>
-      <Title>{t('createAccount')}</Title>
-      <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-        <ReactFormInput
-          errors={errors}
-          label={t('nickname')}
-          name="nickname"
-          pattern={nicknameRegex}
-          register={register}
-          required
-        />
-        <ReactFormInput
-          errors={errors}
-          label={t('password')}
-          name="password"
-          pattern={passwordRegex}
-          register={register}
-          required
-          type="password"
-        />
-        <ReactFormInput
-          errors={errors}
-          label={t('confirmPassword')}
-          name="confirmPassword"
-          register={register}
-          required
-          type="password"
-          validate={(value) => value === watch('password') || 'Passwords do not match'}
-        />
-        <div className="flex justify-between">
-          <div className="text-pink-600 h-6">{error}</div>
-          <Link path={Paths.login}>{t('hasAccount')}</Link>
-        </div>
-        <div className="mt-4 flex justify-center">
-          <Button loading={loadingRegistration || loadingLogin} onClick={handleSubmit(onSubmit)}>{t('create')}</Button>
-        </div>
-      </form>
-    </Card>);
+    <AuthFormContainer>
+      <Card>
+        <Title>{t('createAccount')}</Title>
+        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+          <ReactFormInput
+            errors={errors}
+            label={t('nickname')}
+            name="nickname"
+            pattern={nicknameRegex}
+            register={register}
+            required
+          />
+          <ReactFormInput
+            errors={errors}
+            label={t('password')}
+            name="password"
+            pattern={passwordRegex}
+            register={register}
+            required
+            type="password"
+          />
+          <ReactFormInput
+            errors={errors}
+            label={t('confirmPassword')}
+            name="confirmPassword"
+            register={register}
+            required
+            type="password"
+            validate={(value) => value === watch('password') || 'Passwords do not match'}
+          />
+          <div className="flex justify-between">
+            <div className="text-pink-600 h-6">{error}</div>
+            <Link path={Paths.login} underline>{t('hasAccount')}</Link>
+          </div>
+          <div className="mt-4 flex justify-center">
+            <Button loading={loadingRegistration || loadingLogin} onClick={handleSubmit(onSubmit)}>{t('create')}</Button>
+          </div>
+        </form>
+      </Card>
+    </AuthFormContainer>
+  );
 };
 
 export default RegistrationPage;

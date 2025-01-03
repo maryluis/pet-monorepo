@@ -1,3 +1,3 @@
-import authenticateToken from './authMiddleware';
+import { authMiddleware, optionalAuthMiddleware } from './authMiddleware';
 
-export { authenticateToken };
+export { authMiddleware, optionalAuthMiddleware };

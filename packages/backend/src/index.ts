@@ -1,11 +1,11 @@
 import 'reflect-metadata';
+import 'module-alias/register';
+
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { userRoutes, wishRoutes } from './routes';
-import 'module-alias/register';
-
 dotenv.config();
 const app = express();
 const port = 3001;

@@ -4,12 +4,19 @@
   "create": "Створити",
   "createAccount": "Створити новий акаунт",
   "dontForgetGifts": "Не забудь придбати подарунки для близьких!",
+  "enterPersonNickname": "Введіть нікнейм людини",
+  "findOutWishes": "Дізнатись бажання близької людини",
   "hasAccount": "Вже маю акаунт",
+  "hasntAccount": "Створити акаунт",
   "hello": "Привіт",
   "login": "Вхід",
-  "nextHoliday": "Наступне свято - {{holidayName}} відбудеться {{holidayDate}} ",
+  "logout": "Вихід",
+  "nextHoliday": "Наступне свято - {{holidayName}}",
+  "nextHolidayDate": "відбудеться {{holidayDate}}",
   "nickname": "Нікнейм",
   "nicknameTaken": "Цей нікнейм вже зайнятий",
+  "noResults": "Нема результатів",
   "password": "Пароль",
-  "todayHoliday": "Сьогодні {{holidayName}}"
+  "todayHoliday": "Сьогодні {{holidayName}}",
+  "wrongNicknameOrPassword": "Невірно введені дані"
 }

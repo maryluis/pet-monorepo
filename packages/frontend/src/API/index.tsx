@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { IUserRegistration, IUserLogin } from '@../../types';
-import URLS from '../../../api-urls';
+import URLS from '@shared/api-urls';
 import { handleError } from '@/helpers';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -74,11 +74,32 @@ const getProfile = async (token: string) => {
   }
 };
 
+const getUsersByParticularSearch = async (search: string, pageNumber = 1, token = '') => {
+  try {
+    if (token) {
+      const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } else {
+      const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber));
+      return response.data;
+    }
+
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const API = {
   createUser,
   createWish,
   getHolidaysByCountryYear,
   getProfile,
+  getUsersByParticularSearch,
   login,
 };
 

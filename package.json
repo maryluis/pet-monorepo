@@ -10,6 +10,10 @@
       "plugin:prettier/recommended"
     ]
   },
+  "_moduleAliases": {
+    "@shared/constants": "packages/constants",
+    "@backend": "packages/backend"
+  },
   "type": "module",
   "devDependencies": {
     "@types/express": "^5.0.0",
@@ -31,6 +35,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.12.0",
+    "module-alias": "^2.2.3",
     "typescript-eslint": "^8.15.0",
     "vite-plugin-eslint": "^1.8.1"
   }

@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { errorCodes } from '@shared/constants';
 
 export class CustomError extends Error {
   constructor(message, code) {
@@ -14,8 +15,7 @@ export function handleError(error: Error | CustomError, res: Response) {
     const errorObj = { code: error.code, message: error.message };
     res.status(error.code).json({ error: errorObj, });
   } else {
-    console.error(error);
     const errorObj = { message: 'Internal server error', stack: error.stack };
-    res.status(500).json({ error: errorObj });
+    res.status(errorCodes.serverError).json({ error: errorObj });
   }
 }

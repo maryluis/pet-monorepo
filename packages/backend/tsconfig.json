@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "../../", 
     "module": "ESNext",
     "target": "ESNext",
     "moduleResolution": "node",
@@ -11,9 +11,10 @@
     "allowJs": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["packages/backend/src/*"],  // Псевдонім для бекенду
+      "@shared/*": ["packages/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["packages/**/*"],
   "exclude": ["node_modules"]
 }

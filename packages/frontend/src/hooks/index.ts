@@ -14,7 +14,7 @@ const useNearestHoliday: holidayT | null = (countryCode: string = 'US') => {
       }
     };
     getHoliday();
-  }, []);
+  }, [countryCode]);
   return nextHoliday;
 };
 

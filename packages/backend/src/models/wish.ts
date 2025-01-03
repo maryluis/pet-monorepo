@@ -2,7 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
 
 import sequelize from '@/config/database';
-import { IWish } from '../../types';
+import { IWish } from '../../../types';
 
 class Wish extends Model<IWish> {}
 
@@ -10,7 +10,7 @@ Wish.init({
   authorId: {
     type: DataTypes.UUID,
     references: {
-      model: 'Users',
+      model: 'User',
       key: 'id',
     },
     allowNull: false,
