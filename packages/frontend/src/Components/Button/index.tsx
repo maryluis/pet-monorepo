@@ -12,10 +12,7 @@ const Button = (props: IProps) => {
     <button
       className={
         classNames({
-          'outline-0': true,
-          'border-0': true,
-          'focus:outline-0': true,
-          'active:outline-0': true,
+          'outline-0 border-0 focus:outline-0 active:outline-0': true,
           'px-2': true,
           'py-1 ': true,
           'h-9': true,
