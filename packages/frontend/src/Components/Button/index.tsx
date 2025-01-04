@@ -14,8 +14,7 @@ const Button = (props: IProps) => {
         classNames({
           'outline-0 border-0 focus:outline-0 active:outline-0': true,
           'px-2 py-1 h-9 transition-all min-w-24 duration-150': true,
-          'bg-emerald-500 ': true,
-          'text-green-50': true,
+          'bg-emerald-500 text-green-50': true,
           'hover:bg-emerald-700': !loading,
           'cursor-progress': loading,
         })
