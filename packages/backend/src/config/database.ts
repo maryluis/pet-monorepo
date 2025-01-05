@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('postgres://MarriaHlam:rusofob@localhost:5432/petTasks_db', // використовуємо змінну середовища або безпосередньо URL підключення
+const DATABASE_PASS = process.env.DATABASE_PASS;
+const sequelize = new Sequelize(`postgres://MarriaHlam:${DATABASE_PASS}@localhost:5432/petTasks_db`,
   {
     dialect: 'postgres',
     host: 'localhost',
