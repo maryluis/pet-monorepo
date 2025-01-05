@@ -91,7 +91,7 @@ const HomePage = () => {
       }
     }
   );
-  console.log(noResults);
+
   return (
     <div className="max-w-7xl" style={{ width: '90vw' }}>
       <Card className="min-w-full min-h-72">
