@@ -10,7 +10,7 @@ const sequelize = new Sequelize('postgres://MarriaHlam:rusofob@localhost:5432/pe
 
 sequelize.authenticate()
   .then(() => {
-    console.log('Connected to PostgreSQL using Sequelize!');
+    console.log('Connected to PostgreSQL using Sequelize works!');
   })
   .catch((err) => {
     console.error('Connection error', err.stack);
