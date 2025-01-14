@@ -6,7 +6,7 @@ const API_URLS = {
   login: '/auth/login',
   profile: '/users/profile',
   users: '/users',
-  usersSearch: (search: string) => `/users?search=${search}&pageNumber=${pageNumber}`,
+  usersSearch: (search: string, pageNumber = 1) => `/users?search=${search}&pageNumber=${pageNumber}`,
   userByNickname: (nickname: string) => `/users/${nickname}`,
 };
 

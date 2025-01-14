@@ -10,10 +10,16 @@
   },
   "type": "module",
   "lint-staged": {
-    "packages/**/*.{ts,tsx,js,jsx}": [
+    "packages/backend/**/*.{ts,js}": [
       "eslint --fix"
     ],
-    "packages/**/*.{json}": [
+    "packages/frontend/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix"
+    ],
+    "packages/backend/**/*.{json}": [
+      "prettier --write"
+    ],
+    "packages/frontend/**/*.{json}": [
       "prettier --write"
     ]
   },
