@@ -1,14 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useStore } from '@/zustand';
 import { requestTypes } from '@/constants';
 import { deleteTokenCookie } from '@/cookies';
 import Paths from '@/paths';
-import { errorCodes } from '../../../constants';
+import { errorCodes } from '@shared/constants';
 
 export const useErrors = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const removeToken = useStore((state) => state.removeToken);
   const { t } = useTranslation();
 
@@ -22,7 +23,7 @@ export const useErrors = () => {
     if (e.code === errorCodes.invalidToken) {
       await deleteTokenCookie();
       removeToken();
-      navigate(Paths.login);
+      navigate(Paths.loginWithFallback(location.pathname));
       return e;
     }
     console.error(e);

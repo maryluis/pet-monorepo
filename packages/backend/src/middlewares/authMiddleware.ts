@@ -26,15 +26,10 @@ export const optionalAuthMiddleware = (req: Request, res: Response, next: NextFu
     const token = req.header('Authorization')?.replace('Bearer ', '');
     const SECRET_KEY = process.env.SECRET_KEY;
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
-      if (err) {
-        next();
-        return res.status(errorCodes.invalidToken).json({ message: 'Invalid token', code: errorCodes.invalidToken });
-      }
-      if (decoded.id) {
-        req.user = { id: decoded.id };
+      if (decoded?.id) {
+        req.id = decoded.id;
       }
     });
   }
-
   next();
 };

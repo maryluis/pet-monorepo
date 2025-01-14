@@ -1,7 +1,8 @@
 import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const DATABASE_PASS = process.env.DATABASE_PASS;
-const sequelize = new Sequelize(`postgres://MarriaHlam:${DATABASE_PASS}@localhost:5432/petTasks_db`,
+const sequelize = new Sequelize(`postgres://MarriaHlam:${process.env.DATABASE_PASS}@localhost:5432/petTasks_db`,
   {
     dialect: 'postgres',
     host: 'localhost',

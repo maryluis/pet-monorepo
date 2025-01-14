@@ -10,9 +10,18 @@
   },
   "type": "module",
   "lint-staged": {
-    "*.js": "eslint --fix",
-    "*.ts": "eslint --fix",
-    "*.json": "prettier --write"
+    "packages/backend/**/*.{ts,js}": [
+      "eslint --fix"
+    ],
+    "packages/frontend/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix"
+    ],
+    "packages/backend/**/*.{json}": [
+      "prettier --write"
+    ],
+    "packages/frontend/**/*.{json}": [
+      "prettier --write"
+    ]
   },
   "scripts": {
     "prepare": "husky install"

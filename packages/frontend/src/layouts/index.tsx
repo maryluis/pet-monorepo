@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import API from '@/api';
 import { getTokenCookie, deleteTokenCookie } from '@/cookies';
 import { useStore } from '@/zustand';
+import { useAuth } from '@/hooks';
 import NextHolidayCard from '@/components/NextHolidayCard';
 import Header from '@/components/Header';
 import Button from '@/components/Button';
@@ -23,10 +25,37 @@ const LayoutContainer = (props: { children: ReactNode}) => (
 
 export const PublicLayout = (props: { children: ReactNode }) => {
   const { children } = props;
+  const addId = useStore((state) => state.addId);
+  const addToken = useStore((state) => state.addToken);
+  const removeId = useStore((state) => state.removeId);
+  const removeToken = useStore((state) => state.removeToken);
+  const { isLogged } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const removeToken = useStore((state) => state.removeToken);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const token = await getTokenCookie();
+      if (token) {
+        const id = await API.checkToken(token);
+        if (id) {
+          addToken(token);
+          addId(id);
+        } else {
+          removeToken();
+          removeId();
+          navigate(Paths.loginWithFallback(location.pathname));
+        }
+      }
+    };
+    fetchToken();
+    const intervalId = setInterval(() => fetchToken(), 300000);
+    return () => {
+      clearInterval(intervalId);
+    };
+
+  }, []);
 
   const handleLogout = async () => {
     await deleteTokenCookie();
@@ -36,14 +65,14 @@ export const PublicLayout = (props: { children: ReactNode }) => {
 
   const handleLogin = () => navigate(Paths.login);
 
-  const token = useStore((state) => state.token);
-  const topButton = token
+  const topButton = isLogged
     ? <Button onClick={handleLogout}>
       {t('logout')}
     </Button>
     : <Button onClick={handleLogin}>
       {t('login')}
     </Button>;
+  // TODO fix isLoginPage;
   const isLoginPage = location.pathname === Paths.login;
 
   return (

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import { CustomError } from '@/helpers';
 import { User } from '@/models';
-import { getUserById, findUserByPartialSearch } from '@/db-actions';
+import { getUserById, findUserByPartialSearch, getUserByNickname } from '@/db-actions';
 import { nicknameRegex, passwordRegex, errorCodes } from '@shared/constants';
 
 
@@ -34,7 +34,8 @@ export const createUserService = async (data: IUserRegistration): Promise<IRegis
     throw error;
   }
   const newUser = await User.create({ nickname, password });
-  return newUser;
+  const result = { nickname, id: newUser.id };
+  return result;
 };
 
 export const loginService = async ( data: IUserLogin): Promise<IUser> => {
@@ -42,26 +43,21 @@ export const loginService = async ( data: IUserLogin): Promise<IUser> => {
   const result = await User.findOne({
     where: { nickname },
   });
-
   if (!result) {
     const error = new CustomError('User not found or invalid credentials', errorCodes.userNotFoundedOrWrongCredentials);
     throw error;
   }
-
   const user = result.get();
-
   if (!user) {
     const error = new CustomError('User not found or invalid credentials', errorCodes.userNotFoundedOrWrongCredentials);
     throw error;
   }
-
   const isMatch = await result.validatePassword(password);
   if (!isMatch) {
     const error = new CustomError('User not found or invalid credentials', errorCodes.userNotFoundedOrWrongCredentials);
     throw error;
   }
   const SECRET_KEY = process.env.SECRET_KEY;
-
   const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
   return token;
 };
@@ -72,6 +68,16 @@ export const getProfileService = async (id: string) => {
     return result;
   } catch {
     const error = new CustomError('User not founded', errorCodes.userNotFoundedOrWrongCredentials);
+    throw error;
+  }
+};
+
+export const getUserCommonInfo = async (nickname: string, id = '') => {
+  try {
+    const result = await getUserByNickname(nickname, id);
+    return result;
+  } catch {
+    const error = new CustomError('User not founded', errorCodes.dataNotFounded);
     throw error;
   }
 };

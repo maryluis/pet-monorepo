@@ -38,3 +38,8 @@ export interface IWishCreateData {
   title: string,
   description?: string,
 }
+
+export interface IFollowActionData {
+  followedId: string,
+  followerId: string,
+}

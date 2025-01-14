@@ -1,7 +1,7 @@
 import { useState,
   useEffect
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -22,6 +22,9 @@ import { IUserLogin } from '@shared/types';
 import { nicknameRegex, passwordRegex } from '@shared/constants';
 
 export default function LoginPage() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const fallback = queryParams.get('fallback');
   const addToken = useStore((state) => state.addToken);
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -39,7 +42,11 @@ export default function LoginPage() {
         if (data.token) {
           await setTokenCookie(data.token);
           addToken(data.token);
-          navigate(Paths.profile);
+          if (fallback) {
+            navigate(fallback);
+          } else {
+            navigate(Paths.profile);
+          }
         }
       },
       onError: async (error: Error) => {
@@ -76,6 +83,7 @@ export default function LoginPage() {
             required
           />
           <ReactFormInput
+            autocomplete="current-password"
             errors={errors}
             label={t('password')}
             name="password"

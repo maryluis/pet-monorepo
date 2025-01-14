@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { holidayT } from '@/types';
 import { getNearestHoliday } from '@/helpers';
 import useErrors from './use-errors';
+import useAuth from './use-auth';
+import usePrivateAction from './use-private-action';
 
 const useNearestHoliday: holidayT | null = (countryCode: string = 'US') => {
   const [nextHoliday, setNextHoliday] = useState<holidayT | null>(null);
@@ -18,4 +20,4 @@ const useNearestHoliday: holidayT | null = (countryCode: string = 'US') => {
   return nextHoliday;
 };
 
-export { useErrors, useNearestHoliday };
+export { useErrors, useNearestHoliday, useAuth, usePrivateAction };

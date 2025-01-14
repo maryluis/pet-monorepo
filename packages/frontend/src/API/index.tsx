@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { IUserRegistration, IUserLogin } from '@../../types';
+import { IUserRegistration, IUserLogin } from '@shared/types';
 import URLS from '@shared/api-urls';
 import { handleError } from '@/helpers';
 
@@ -11,6 +11,23 @@ const axiosInstance = axios.create({
   timeout: 1000,
   headers: { 'Content-Type': 'application/json' },
 });
+
+const headerWithToken = (token:string) => ({
+  Authorization: `Bearer ${token}`,
+  'Content-Type': 'application/json',
+});
+
+const checkToken = async (token: string) => {
+  try {
+    const response = await axiosInstance.get(URLS.authCheck, {
+      headers: headerWithToken(token),
+    });
+    return response.data;
+
+  } catch (error) {
+    handleError(error);
+  }
+};
 
 const createUser = async (userData: IUserRegistration) => {
   try {
@@ -24,12 +41,20 @@ const createUser = async (userData: IUserRegistration) => {
 const createWish = async (dataWish: { title: string, description: string }, token: string) => {
   try {
     const response = await axiosInstance.post(URLS.createWish, dataWish, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: headerWithToken(token),
     });
 
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+const followUser = async (followedId: string, token: string) => {
+  try {
+    const response = await axiosInstance.post(URLS.followers, { followedId }, {
+      headers: headerWithToken(token),
+    });
     return response.data;
   } catch (error) {
     handleError(error);
@@ -62,10 +87,7 @@ const getHolidaysByCountryYear = async (year: number, countryCode: string = 'UA'
 const getProfile = async (token: string) => {
   try {
     const response = await axiosInstance.get(URLS.profile, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: headerWithToken(token),
     });
     return response.data;
 
@@ -74,33 +96,56 @@ const getProfile = async (token: string) => {
   }
 };
 
+const getUserByNickname = async (nickname: string, token = '') => {
+  try {
+    const headers = token ? {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    } : undefined;
+    const response = await axiosInstance.get(URLS.userByNickname(nickname), { headers });
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 const getUsersByParticularSearch = async (search: string, pageNumber = 1, token = '') => {
   try {
-    if (token) {
-      const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      return response.data;
-    } else {
-      const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber));
-      return response.data;
-    }
+    const headers = token ? {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    } : undefined;
 
+    const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber), { headers });
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+const unFollowUser = async (followedId: string, token: string) => {
+  try {
+    const response = await axiosInstance.delete(URLS.followers, {
+      headers: headerWithToken(token),
+      data: { followedId },
+    });
+    return response.data;
   } catch (error) {
     handleError(error);
   }
 };
 
 export const API = {
+  checkToken,
   createUser,
   createWish,
+  followUser,
   getHolidaysByCountryYear,
   getProfile,
+  getUserByNickname,
   getUsersByParticularSearch,
   login,
+  unFollowUser,
 };
 
 export default API;

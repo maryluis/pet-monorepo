@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import debounce from 'lodash.debounce';
 import classNames from 'classnames';
 
+import { useErrors, useAuth } from '@/hooks';
 import { API } from '@/api';
 import Card from '@/components/Card';
 import ResultsScrollContainer from '@/components/ResultsScrollContainer';
@@ -17,6 +18,7 @@ type usersResultsT = { id: string, nickname: string };
 
 type extendedUserResultsT = usersResultsT & {
   isLast?: boolean;
+  isMe: boolean,
 };
 
 const ResultComponent = (props: extendedUserResultsT) => {
@@ -27,7 +29,7 @@ const ResultComponent = (props: extendedUserResultsT) => {
           'border-b-2 border-current border-solid': !props.isLast
         })
       }
-      path={Paths.userByNickname(props.nickname)}
+      path={props.isMe ? Paths.profile : Paths.userByNickname(props.nickname)}
     >
       {props.nickname}
     </Link>
@@ -36,6 +38,8 @@ const ResultComponent = (props: extendedUserResultsT) => {
 
 const HomePage = () => {
   const { t } = useTranslation();
+  const errorsHandler = useErrors();
+  const { isLogged, id } = useAuth();
 
   const [users, setUsers] = useState<usersResultsT[]>([]);
   const [noResults, setNoResults] = useState(false);
@@ -56,7 +60,6 @@ const HomePage = () => {
     }, 500),
     []
   );
-
   const { ref: loadMoreRef } = useInView({
     triggerOnce: false,
     onChange: debounce((inView) => {
@@ -106,7 +109,7 @@ const HomePage = () => {
             loading={isLoading || isFetching}
           >
             {users.map((item, i) => (
-              <ResultComponent key={item.id} nickname={item.nickname} isLast={i === users.length - 1} />
+              <ResultComponent key={item.id} isMe={isLogged && (id === item.id)} nickname={item.nickname} isLast={i === users.length - 1} />
             ))}
             <div ref={loadMoreRef} />
           </ResultsScrollContainer>

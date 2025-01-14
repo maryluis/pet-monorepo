@@ -14,7 +14,7 @@ export class CustomError extends Error {
 
 export const handleError = (errorData) => {
   if (errorData?.status === 409) {
-    const error = new CustomError('Nickname is taken', 409);
+    const error = new CustomError('Already exists', 409);
     throw error;
   }
   if (errorData?.status === 401) {

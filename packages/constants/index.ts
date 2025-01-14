@@ -2,10 +2,11 @@ export const nicknameRegex = /^[a-zA-Z0-9]{6,}$/;
 export const passwordRegex = /^(?=.*\d)(?=[a-zA-Z0-9]{8,}$).+$/;
 
 export const errorCodes = Object.freeze({
+  alreadyExists: 409,
   accessDenied: 403,
   dataNotFounded: 400,
   invalidToken: 401,
-  nicknamePAsswordRequired: 400,
+  nicknamePasswordRequired: 400,
   nicknameTaken: 409,
   passwordsNotMatch: 400,
   serverError: 500,

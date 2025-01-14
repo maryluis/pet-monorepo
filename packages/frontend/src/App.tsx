@@ -61,7 +61,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <FullScreenContainer>
         <Suspense fallback={<div className="w-screen flex justify-center"><BigLoader /></div>}>
-          <RouterProvider router={router} />
+          <RouterProvider router={router} future={{ v7_startTransition: true }} />
         </Suspense>
       </FullScreenContainer>
     </QueryClientProvider>

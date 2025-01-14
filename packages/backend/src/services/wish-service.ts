@@ -1,8 +1,8 @@
 import { CustomError } from '@/helpers';
 import { Wish } from '@/models';
 
-import { IWishCreateData, IWish } from '../../../types';
-import { errorCodes } from '../../../constants';
+import { IWishCreateData, IWish } from '@shared/types';
+import { errorCodes } from '@shared/constants';
 
 export const createWish = async (data: IWishCreateData): Promise<IWish> => {
   const { authorId, title, description = '' } = data;

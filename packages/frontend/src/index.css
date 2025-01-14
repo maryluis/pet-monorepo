@@ -58,6 +58,47 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background-color: #10b981;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.input-checkbox {
+  cursor: pointer;
+}
+
+.input-checkbox > div {
+  background-color: #10b981;
+}
+
+.input-checkbox:hover div {
+  background-color: #047857;
+}
+
+@layer components {
+  .range-thumb-custom::-webkit-slider-thumb {
+    @apply w-6 h-1 rounded-full cursor-pointer;
+  }
+
+  .range-thumb-custom::-webkit-slider-runnable-track {
+    @apply bg-gray-300 rounded-lg;
+  }
+
+  .range-thumb-custom::-moz-range-thumb {
+    @apply w-2 h-1 rounded-full cursor-pointer;
+  }
+
+  .range-thumb-custom::-moz-range-track {
+    @apply bg-gray-300 h-1 rounded-lg;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
