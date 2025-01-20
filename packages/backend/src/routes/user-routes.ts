@@ -123,11 +123,11 @@ router.post(API_URLS.login, login);
  *                         type: string
  *                       description:
  *                         type: string
- *                       assigned:
+ *                       isAssigned:
  *                         type: boolean
- *                       is_received:
+ *                       isReceived:
  *                         type: boolean
- *                 assignedWishes:
+ *                 isAssignedWishes:
  *                   type: array
  *                   items:
  *                     type: object
@@ -260,7 +260,7 @@ router.get(API_URLS.authCheck, authMiddleware, getTokenStatus);
 *                         type: string
 *                       description:
 *                         type: string
-*                       assigned:
+*                       isAssigned:
 *                         type: boolean
 *                       isReceived:
 *                         type: boolean

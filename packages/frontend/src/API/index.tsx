@@ -17,13 +17,26 @@ const headerWithToken = (token:string) => ({
   'Content-Type': 'application/json',
 });
 
+const assignWish = async (token: string, wishId: string) => {
+  const response = await axiosInstance.put(URLS.assignWish, { wishId }, {
+    headers: headerWithToken(token),
+  });
+  return response.data;
+};
+
+const cancelAssignWish = async (token: string, wishId: string) => {
+  const response = await axiosInstance.put(URLS.cancelAssignWish, { wishId }, {
+    headers: headerWithToken(token),
+  });
+  return response.data;
+};
+
 const checkToken = async (token: string) => {
   try {
     const response = await axiosInstance.get(URLS.authCheck, {
       headers: headerWithToken(token),
     });
     return response.data;
-
   } catch (error) {
     handleError(error);
   }
@@ -135,7 +148,18 @@ const unFollowUser = async (followedId: string, token: string) => {
   }
 };
 
+const getWishes = async (authorId: string, pageNumber = 1, executorId = '') => {
+  try {
+    const response = await axiosInstance.get(URLS.wishesList(authorId, pageNumber, executorId));
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const API = {
+  assignWish,
+  cancelAssignWish,
   checkToken,
   createUser,
   createWish,
@@ -144,6 +168,7 @@ export const API = {
   getProfile,
   getUserByNickname,
   getUsersByParticularSearch,
+  getWishes,
   login,
   unFollowUser,
 };

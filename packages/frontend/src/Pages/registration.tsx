@@ -83,7 +83,7 @@ const RegistrationPage = () => {
 
   return (
     <AuthFormContainer>
-      <Card>
+      <Card className="max-w-md">
         <Title>{t('createAccount')}</Title>
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <ReactFormInput

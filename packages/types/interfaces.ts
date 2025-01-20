@@ -29,14 +29,19 @@ export interface IWish {
   executorId?: string;
   createdAt: Date;
   updatedAt: Date;
-  assigned: boolean;
-  is_received: boolean;
+  isAssigned: boolean;
+  isReceived: boolean;
 }
 
 export interface IWishCreateData {
   authorId: string,
   title: string,
   description?: string,
+}
+
+export interface IWishGetData {
+  authorId: string,
+  executorId?: string,
 }
 
 export interface IFollowActionData {

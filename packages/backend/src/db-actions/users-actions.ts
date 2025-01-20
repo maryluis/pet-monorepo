@@ -12,12 +12,7 @@ export const getUserById = async (id: string) => {
         {
           model: Wish,
           as: 'myWishes',
-          attributes: ['id', 'title', 'description', 'assigned', 'is_received'],
-        },
-        {
-          model: Wish,
-          as: 'assignedWishes',
-          attributes: ['id', 'title', 'description', 'assigned', 'is_received'],
+          attributes: ['id', 'title', 'description', 'isAssigned', 'isReceived'],
         },
         {
           model: Follower,
@@ -38,16 +33,19 @@ export const getUserById = async (id: string) => {
 };
 
 export const getUserByNickname = async (nickname: string, id = '') => {
-// TODO wishes pagination;
   const attributesWithoutId = [
     'id',
     'nickname',
     [
-      sequelize.fn('COUNT', sequelize.col('followers.followedId')),
+      sequelize.fn('COUNT', sequelize.literal('DISTINCT "myWishes"."id"')),
+      'wishesCount'
+    ],
+    [
+      sequelize.fn('COUNT', sequelize.literal('DISTINCT "followers"."id"')),
       'followersCount'
     ],
     [
-      sequelize.fn('COUNT', sequelize.col('subscribers.followedId')),
+      sequelize.fn('COUNT', sequelize.literal('DISTINCT "subscribers"."id"')),
       'subscribersCount'
     ],
   ];
@@ -56,7 +54,7 @@ export const getUserByNickname = async (nickname: string, id = '') => {
     ...attributesWithoutId,
     [
       sequelize.fn('COUNT', sequelize.where(
-        sequelize.col('followers.followerId'),
+        sequelize.literal('DISTINCT "followers"."followerId"'),
         id,
       )),
       'amISubscribed',
@@ -69,13 +67,8 @@ export const getUserByNickname = async (nickname: string, id = '') => {
       where: {
         nickname,
       },
-      attributes: attributes,
+      attributes,
       include: [
-        {
-          model: Wish,
-          as: 'myWishes',
-          attributes: ['id', 'title', 'description', 'assigned', 'is_received'],
-        },
         {
           model: Follower,
           as: 'followers',
@@ -88,19 +81,25 @@ export const getUserByNickname = async (nickname: string, id = '') => {
           attributes: [],
           required: false,
         },
+        {
+          model: Wish,
+          as: 'myWishes',
+          attributes: [],
+          required: false,
+        },
       ],
       subQuery: false,
-      group: ['User.id', 'myWishes.id', 'followers.id', 'subscribers.id'],
+      limit: 1,
+      group: ['User.id'],
     });
 
     if (!user) {
       return null;
     }
     const result = user.toJSON();
-    result.wishes = result.myWishes;
-    delete result.myWishes;
     result.followersCount = parseInt(result.followersCount, 10);
     result.subscribersCount = parseInt(result.subscribersCount, 10);
+    result.wishesCount = parseInt(result.wishesCount, 10);
     if (id) {
       result.amISubscribed = result.amISubscribed === '1';
     } else {

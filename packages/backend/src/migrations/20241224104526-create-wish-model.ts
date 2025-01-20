@@ -19,12 +19,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      assigned: {
+      isAssigned: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      is_received: {
+      isReceived: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,

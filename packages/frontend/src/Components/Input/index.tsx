@@ -92,7 +92,7 @@ export const Checkbox = (props: ICheckboxInputProps) => {
           className="absolute h-4 w-4 rounded-2xl"
           style={{
             top: '-50%',
-            left: value ? '0px' : 'calc(100% - 16px)',
+            left: value ? 'calc(100% - 16px)' : '0px',
           }}
         />
         <input

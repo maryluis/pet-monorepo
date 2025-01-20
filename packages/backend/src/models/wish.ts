@@ -1,5 +1,4 @@
 import { Model, DataTypes } from 'sequelize';
-import { v4 as uuidv4 } from 'uuid';
 
 import sequelize from '@/config/database';
 import { IWish } from '../../../types';
@@ -18,7 +17,7 @@ Wish.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
-    defaultValue: uuidv4(),
+    defaultValue: DataTypes.UUIDV4
   },
   title: {
     type: DataTypes.STRING,
@@ -37,12 +36,12 @@ Wish.init({
     type: DataTypes.STRING,
     allowNull: true,
   },
-  assigned: {
+  isAssigned: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false,
   },
-  is_received:{
+  isReceived:{
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false,

@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "MarriaHlam",
-    "password": "PG_PASSWORD",
+    "password": "rusofob",
     "database": "petTasks_db",
     "host": "localhost",
     "dialect": "postgres",
@@ -10,7 +10,7 @@
   },
   "test": {
     "username": "MarriaHlam",
-    "password": "PG_PASSWORD",
+    "password": "rusofob",
     "database": "petTasks_db_test",
     "host": "localhost",
     "dialect": "postgres",

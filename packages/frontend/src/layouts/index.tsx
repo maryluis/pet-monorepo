@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useLayoutEffect, useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -34,7 +34,7 @@ export const PublicLayout = (props: { children: ReactNode }) => {
   const location = useLocation();
   const { t } = useTranslation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchToken = async () => {
       const token = await getTokenCookie();
       if (token) {
@@ -54,7 +54,6 @@ export const PublicLayout = (props: { children: ReactNode }) => {
     return () => {
       clearInterval(intervalId);
     };
-
   }, []);
 
   const handleLogout = async () => {
@@ -72,17 +71,16 @@ export const PublicLayout = (props: { children: ReactNode }) => {
     : <Button onClick={handleLogin}>
       {t('login')}
     </Button>;
-  // TODO fix isLoginPage;
   const isLoginPage = location.pathname === Paths.login;
 
   return (
     <LayoutContainer>
-      <Header>
+      <Header isLogged={isLogged}>
         {!isLoginPage
       && topButton}
       </Header>
       <div className="flex flex-col items-center h-full">
-        <div className="w-full flex justify-start items-start"><NextHolidayCard /></div>
+        <div className="w-11/12 max-w-screen-2xl flex justify-start items-start"><NextHolidayCard /></div>
         {children}
       </div>
       <div className="w-full h-full" />
@@ -92,22 +90,36 @@ export const PublicLayout = (props: { children: ReactNode }) => {
 export const PrivateLayout = (props: { children: ReactNode }) => {
   const { children } = props;
   const addToken = useStore((state) => state.addToken);
+  const addId = useStore((state) => state.addId);
+  const removeId = useStore((state) => state.removeId);
   const removeToken = useStore((state) => state.removeToken);
   const { t } = useTranslation();
 
   const navigate = useNavigate();
 
-  const checkToken = async () => {
-    const token = await getTokenCookie();
-    if (!token) {
-      navigate(Paths.login);
-    } else {
-      addToken(token);
-    }
-  };
-
   useLayoutEffect(() => {
-    checkToken();
+    const fetchToken = async () => {
+      const token = await getTokenCookie();
+      if (!token) {
+        navigate(Paths.login);
+      } else {
+        try {
+          const id = await API.checkToken(token);
+          addToken(token);
+          addId(id);
+        } catch {
+          await deleteTokenCookie();
+          removeId();
+          removeToken();
+          navigate(Paths.login);
+        }
+      }
+    };
+    fetchToken();
+    const intervalId = setInterval(() => fetchToken(), 300000);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [navigate]);
 
   const handleLogout = async () => {
@@ -118,7 +130,7 @@ export const PrivateLayout = (props: { children: ReactNode }) => {
 
   return (
     <LayoutContainer>
-      <Header>
+      <Header isLogged>
         <Button onClick={handleLogout}>
           {t('logout')}
         </Button>

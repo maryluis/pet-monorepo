@@ -11,12 +11,12 @@ interface UserAttributes {
   createdAt: Date;
   updatedAt: Date,
   myWishes?: Wish[];
-  assignedWishes?: Wish[];
+  isAssignedWishes?: Wish[];
 }
 
 class User extends Model<UserAttributes> {
   public readonly myWishes!: Wish[];
-  public readonly assignedWishes!: Wish[];
+  public readonly isAssignedWishes!: Wish[];
 }
 
 User.init({

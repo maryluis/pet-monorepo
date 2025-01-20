@@ -5,10 +5,11 @@ import {
   getUsersByPartialSearch,
   getUserCommonInfo
 } from './user-service';
-import { createWish } from './wish-service';
+import { assignedWish, createWish, cancelFromWish, getWishes } from './wish-service';
 import { followUserService, unFollowUserService } from './follower-service';
 
-export { createUserService, getProfileService, loginService,
-  createWish, getUsersByPartialSearch, getUserCommonInfo,
-  followUserService, unFollowUserService
+export { assignedWish, createUserService, createWish,
+  cancelFromWish, followUserService, getProfileService, loginService,
+  getUsersByPartialSearch, getUserCommonInfo,
+  unFollowUserService, getWishes
 };

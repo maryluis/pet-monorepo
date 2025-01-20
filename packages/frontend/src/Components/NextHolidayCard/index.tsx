@@ -17,7 +17,10 @@ export const NextHolidayCard = () => {
   const bottomStr = isTodayHoliday ? t('congratulations') : t('dontForgetGifts');
 
   return (
-    <div className="italic font-serif text-xl font-medium p-3 text-amber-50">
+    <div
+      className="italic font-serif text-xl font-medium p-3 text-amber-50 text-balance"
+      style={{ textShadow: '2px 2px 5px rgba(0, 0, 0, 30)' }}
+    >
       {nextHoliday !== null
     && <>
       <div className="mb-2.5">

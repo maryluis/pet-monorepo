@@ -1,5 +1,5 @@
 import { useState,
-  useEffect
+  useLayoutEffect
 } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -56,7 +56,7 @@ export default function LoginPage() {
     }
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const checkToken = async () => {
       const token = await getTokenCookie();
       if (token) {
@@ -71,7 +71,7 @@ export default function LoginPage() {
 
   return (
     <AuthFormContainer>
-      <Card>
+      <Card className="max-w-md ">
         <Title>{t('login')}</Title>
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <ReactFormInput
