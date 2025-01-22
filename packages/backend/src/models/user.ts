@@ -5,11 +5,11 @@ import sequelize from '@/config/database';
 import Wish from './wish';
 
 interface UserAttributes {
-  id: string;
+  id?: string;
   nickname: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date,
+  createdAt?: Date;
+  updatedAt?: Date,
   myWishes?: Wish[];
   isAssignedWishes?: Wish[];
 }
