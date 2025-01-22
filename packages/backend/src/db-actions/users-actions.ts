@@ -4,7 +4,7 @@ import sequelize from '@/config/database';
 import { User, Wish, Follower } from '@/models';
 import { dbErrorsHandler } from '@/helpers';
 
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const getUserById = async (id: string) => {
   try {
     const user = await User.findByPk(id, {
@@ -68,7 +68,7 @@ export const getUserByNickname = async (nickname: string, id = '') => {
       where: {
         nickname,
       },
-      attributes,
+      attributes: attributes as any,
       include: [
         {
           model: Follower,

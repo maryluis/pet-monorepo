@@ -33,18 +33,24 @@ export const cancelWishController = async (req: RequestWithId, res: Response) =>
 export const createWishController = async (req: RequestWithId, res: Response) => {
   try {
     const { title, description } = req.body;
-    const authorId = req.id;
-    const wish: IWish = await createWish({ authorId, title, description });
+    const authorId = req.id || '';
+    const wish: IWish | null = await createWish({ authorId, title, description });
     res.status(200).json({ message: 'Wish created successfully', wish });
   } catch (error) {
     handleError(error, res);
   }
 };
 
-export const getWishesController = async (req: Request, res: Response) => {
+interface GetWishRequest extends Request {
+  query: {
+    authorId: string;
+    executorId: string;
+  }
+}
+export const getWishesController = async (req: GetWishRequest, res: Response) => {
   try {
     const { authorId, executorId = '' } = req.query;
-    const result: { wishes: IWish[], hasMore: boolean } = await getWishes({ authorId, executorId });
+    const result: { wishes: IWish[], hasMore: boolean } | null = await getWishes({ authorId, executorId });
     res.status(200).json(result);
   } catch (error) {
     handleError(error, res);

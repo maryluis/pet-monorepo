@@ -5,7 +5,7 @@ import { errorCodes } from '@shared/constants';
 import { IWish } from '@shared/types';
 
 type wishesList ={ wishes: IWish[], hasMore: boolean };
-export const getWishesByAuthorId = async (authorId: string, executorId = '', page = 1, pageSize = 10): Promise<wishesList | null> => {
+export const getWishesByAuthorId = async (authorId: string, executorId: string | null = '', page = 1, pageSize = 10): Promise<wishesList | null> => {
   try {
     const offset = (page - 1) * pageSize;
     const whereWithoutExecutor = {
