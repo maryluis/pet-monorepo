@@ -25,7 +25,7 @@ export const createUser = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { nickname, password } = req.body;
   if (!nickname || !password) {
-    return res.status(errorCodes.nicknamePasswordRequired).json({ message: 'NickName and Password are required' });
+    res.status(errorCodes.nicknamePasswordRequired).json({ message: 'NickName and Password are required' });
   }
   try {
     const token = await loginService(req.body);
@@ -38,7 +38,7 @@ export const login = async (req: Request, res: Response) => {
 export const getProfile = async (req: RequestWithId, res: Response) => {
   const { id } = req;
   if (!id) {
-    return res.status(errorCodes.dataNotFounded).json({ message: 'Profile not founded' });
+    res.status(errorCodes.dataNotFounded).json({ message: 'Profile not founded' });
   }
   try {
     const user = await getProfileService(id);
@@ -51,7 +51,7 @@ export const getProfile = async (req: RequestWithId, res: Response) => {
 export const getTokenStatus = async (req: RequestWithId, res: Response) => {
   const { id } = req;
   if (!id) {
-    return res.status(errorCodes.invalidToken).json({ message: 'Invalid token' });
+    res.status(errorCodes.invalidToken).json({ message: 'Invalid token' });
   }
   try {
     const result = id;
@@ -65,7 +65,7 @@ export const getUserCommonInfoByNickname = async (req: RequestWithId, res: Respo
   const { nickname } = req.params;
   const { id } = req;
   if (!nickname) {
-    return res.status(errorCodes.dataNotFounded).json({ message: 'Wrong nickname' });
+    res.status(errorCodes.dataNotFounded).json({ message: 'Wrong nickname' });
   }
   try {
     const result = await getUserCommonInfo(nickname, id || '');

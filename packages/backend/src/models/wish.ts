@@ -3,7 +3,10 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '@/config/database';
 import { IWish } from '../../../types';
 
-class Wish extends Model<IWish> {}
+class Wish extends Model<IWish> {
+  public isAssigned: boolean;
+  public isReceived: boolean = false;
+}
 
 Wish.init({
   authorId: {
