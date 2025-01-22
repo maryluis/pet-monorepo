@@ -5,6 +5,7 @@ import sequelize from '@/config/database';
 import Wish from './wish';
 
 interface UserAttributes {
+  amISubscribed?: boolean | string;
   id?: string;
   nickname: string;
   password: string;
@@ -12,10 +13,13 @@ interface UserAttributes {
   updatedAt?: Date,
   myWishes?: Wish[];
   isAssignedWishes?: Wish[];
+  wishesCount?: number;
 }
 
 class User extends Model<UserAttributes> {
   declare public id: string;
+  public readonly amISubscribed: boolean | string = false;
+  public readonly wishesCount: number = 0;
   public getPassword(): string {
     return this.getDataValue('password');
   };

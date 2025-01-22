@@ -155,8 +155,8 @@ export const findUserByPartialSearch = async (partialSearch: string, page = 1, p
 
     const hasMore = users.length === pageSize;
     return { users: result, hasMore };
-  } catch (error) {
-    handleError(error);
+  } catch {
+    dbErrorsHandler();
   }
 };
 

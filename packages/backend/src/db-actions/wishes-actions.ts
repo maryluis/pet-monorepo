@@ -32,6 +32,7 @@ export const getWishesByAuthorId = async (authorId: string, executorId = '', pag
     return { wishes, hasMore };
   } catch {
     dbErrorsHandler();
+    return null;
   }
 };
 

@@ -35,8 +35,8 @@ export const createWish = async (data: IWishCreateData): Promise<IWish | null> =
   return newWish.get();
 };
 
-type wishList = { wishes: IWish[], hasMore: boolean };
-export const getWishes = async (data: IWishGetData): Promise<wishList> => {
+// type wishList = { wishes: IWish[], hasMore: boolean };
+export const getWishes = async (data: IWishGetData) => {
   const { authorId, executorId = '' } = data;
   if (!authorId) {
     const error = new CustomError('AuthorId cant be empty', errorCodes.wrongWishData);
