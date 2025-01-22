@@ -13,13 +13,18 @@ interface UserAttributes {
   updatedAt?: Date,
   myWishes?: Wish[];
   isAssignedWishes?: Wish[];
-  wishesCount?: number;
+  wishesCount?: number | string;
+  subscribersCount?: number | string;
+  followersCount?: number | string;
 }
 
 class User extends Model<UserAttributes> {
   declare public id: string;
   public readonly amISubscribed: boolean | string = false;
   public readonly wishesCount: number = 0;
+  public readonly subscribersCount: number = 0;
+  public readonly followersCount: number = 0;
+
   public getPassword(): string {
     return this.getDataValue('password');
   };

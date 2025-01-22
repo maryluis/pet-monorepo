@@ -98,9 +98,21 @@ export const getUserByNickname = async (nickname: string, id = '') => {
       return null;
     }
     const result = user.toJSON();
-    result.followersCount = parseInt(result.followersCount, 10);
-    result.subscribersCount = parseInt(result.subscribersCount, 10);
-    result.wishesCount = parseInt(result.wishesCount, 10);
+    if (typeof result.followersCount === 'string') {
+      result.followersCount = parseInt(result.followersCount, 10);
+    } else {
+      result.followersCount = 0;
+    }
+    if (typeof result.subscribersCount === 'string') {
+      result.subscribersCount = parseInt(result.subscribersCount, 10);
+    } else {
+      result.subscribersCount = 0;
+    }
+    if (typeof result.wishesCount === 'string') {
+      result.wishesCount = parseInt(result.wishesCount, 10);
+    } else {
+      result.wishesCount = 0;
+    }
     if (id) {
       result.amISubscribed = result.amISubscribed === '1';
     } else {
