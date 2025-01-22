@@ -4,8 +4,21 @@ import sequelize from '@/config/database';
 import { IWish } from '../../../types';
 
 class Wish extends Model<IWish> {
-  public isAssigned: boolean;
-  public isReceived: boolean = false;
+  public get isAssigned(): boolean {
+    return this.getDataValue('isAssigned') || false;
+  }
+
+  public set isAssigned(value: boolean) {
+    this.setDataValue('isAssigned', value);
+  }
+
+  public get isReceived(): boolean {
+    return this.getDataValue('isReceived') || false;
+  }
+
+  public set isReceived(value: boolean) {
+    this.setDataValue('isReceived', value);
+  }
 }
 
 Wish.init({

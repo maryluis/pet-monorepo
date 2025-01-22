@@ -1,7 +1,7 @@
 import { Follower } from '@/models';
+import { dbErrorsHandler } from '@/helpers';
 
 import { IFollowActionData } from '@shared/types';
-import { handleError } from '@/helpers';
 
 export const isAlreadyFollowed = async (data: IFollowActionData) => {
   const { followedId, followerId } = data;
@@ -13,7 +13,7 @@ export const isAlreadyFollowed = async (data: IFollowActionData) => {
       },
     });
     return !!following;
-  } catch (error) {
-    handleError(error);
+  } catch {
+    dbErrorsHandler();
   }
 };

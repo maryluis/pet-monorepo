@@ -16,10 +16,16 @@ interface UserAttributes {
 
 class User extends Model<UserAttributes> {
   declare public id: string;
+  public getPassword(): string {
+    return this.getDataValue('password');
+  };
+  public setPassword(password: string): void {
+    this.setDataValue('password', password);
+  };
   public readonly myWishes!: Wish[];
   public readonly isAssignedWishes!: Wish[];
   public async validatePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.getDataValue('password'));
+    return bcrypt.compare(password, this.getPassword());
   }
 }
 
@@ -65,14 +71,11 @@ User.init({
 });
 
 User.beforeCreate(async (user) => {
-  if (user.password) {
+  if (user.getDataValue('password')) {
     const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
+    const hashedPassword = await bcrypt.hash(user.getDataValue('password'), salt);
+    user.setDataValue('password', hashedPassword);
   }
 });
-
-User.prototype.validatePassword = async function (password: string): Promise<boolean> {
-  return bcrypt.compare(password, this.password);
-};
 
 export default User;

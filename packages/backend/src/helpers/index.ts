@@ -2,6 +2,7 @@ import { Response } from 'express';
 import { errorCodes } from '@shared/constants';
 
 export class CustomError extends Error {
+  code: number;
   constructor(message, code) {
     super(message);
     this.name = this.constructor.name;
@@ -20,4 +21,9 @@ export function handleError(error: Error | CustomError | unknown, res: Response)
   } else {
     res.status(errorCodes.serverError).json('Internal server error');
   }
+}
+
+export function dbErrorsHandler() {
+  const error = new CustomError('Error in Db action', errorCodes.serverError);
+  throw error;
 }
