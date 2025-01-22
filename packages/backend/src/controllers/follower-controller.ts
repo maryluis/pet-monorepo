@@ -2,7 +2,11 @@ import { Request, Response } from 'express';
 import { handleError } from '@/helpers';
 import { followUserService, unFollowUserService } from '@/services';
 
-export const followUserController = async (req: Request, res: Response) => {
+interface RequestWithId extends Request {
+  id: string,
+}
+
+export const followUserController = async (req: RequestWithId, res: Response) => {
   try {
     const followerId = req.id;
     const { followedId } = req.body;
@@ -13,7 +17,7 @@ export const followUserController = async (req: Request, res: Response) => {
   }
 };
 
-export const unFollowUserController = async (req: Request, res: Response) => {
+export const unFollowUserController = async (req: RequestWithId, res: Response) => {
   try {
     const followerId = req.id;
     const { followedId } = req.body;

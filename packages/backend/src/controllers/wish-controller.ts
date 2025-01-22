@@ -4,7 +4,11 @@ import { handleError } from '@/helpers';
 
 import { IWish } from '@shared/types';
 
-export const assignedWishController = async (req: Request, res: Response) => {
+interface RequestWithId extends Request {
+  id: string,
+}
+
+export const assignedWishController = async (req: RequestWithId, res: Response) => {
   try {
     const { wishId } = req.body;
     const executorId = req.id;
@@ -15,7 +19,7 @@ export const assignedWishController = async (req: Request, res: Response) => {
   }
 };
 
-export const cancelWishController = async (req: Request, res: Response) => {
+export const cancelWishController = async (req: RequestWithId, res: Response) => {
   try {
     const { wishId } = req.body;
     const executorId = req.id;
@@ -26,7 +30,7 @@ export const cancelWishController = async (req: Request, res: Response) => {
   }
 };
 
-export const createWishController = async (req: Request, res: Response) => {
+export const createWishController = async (req: RequestWithId, res: Response) => {
   try {
     const { title, description } = req.body;
     const authorId = req.id;

@@ -9,6 +9,10 @@ import {
 import { handleError } from '@/helpers';
 import { errorCodes } from '@shared/constants';
 
+interface RequestWithId extends Request {
+  id: string,
+}
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const user = await createUserService(req.body);
@@ -31,7 +35,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const getProfile = async (req: Request, res: Response) => {
+export const getProfile = async (req: RequestWithId, res: Response) => {
   const { id } = req;
   if (!id) {
     return res.status(errorCodes.dataNotFounded).json({ message: 'Profile not founded' });
@@ -44,7 +48,7 @@ export const getProfile = async (req: Request, res: Response) => {
   }
 };
 
-export const getTokenStatus = async (req: Request, res: Response) => {
+export const getTokenStatus = async (req: RequestWithId, res: Response) => {
   const { id } = req;
   if (!id) {
     return res.status(errorCodes.invalidToken).json({ message: 'Invalid token' });
@@ -57,7 +61,7 @@ export const getTokenStatus = async (req: Request, res: Response) => {
   }
 };
 
-export const getUserCommonInfoByNickname = async (req: Request, res: Response) => {
+export const getUserCommonInfoByNickname = async (req: RequestWithId, res: Response) => {
   const { nickname } = req.params;
   const { id } = req;
   if (!nickname) {
