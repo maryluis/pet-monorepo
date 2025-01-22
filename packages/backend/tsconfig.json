@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "outDir": "./lib",
     "strict": true,
-    "rootDir": "./src",
+    "rootDir": "../../",
     "allowJs": true,
     "skipLibCheck": true,
     "paths": {
