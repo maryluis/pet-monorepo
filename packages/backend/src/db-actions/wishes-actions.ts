@@ -52,7 +52,7 @@ export async function assignExecutorToWish(wishId: string, executorId: string): 
 
     await wish.save();
 
-    return wish;
+    return wish.get();
   } catch (error) {
     handleError(error);
   }
@@ -77,7 +77,7 @@ export async function cancelExecutorFromWish(wishId: string, executorId: string)
 
     await wish.save();
 
-    return wish;
+    return wish.get();
   } catch (error) {
     handleError(error);
   }
