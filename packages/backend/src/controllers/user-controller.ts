@@ -75,7 +75,7 @@ export const getUsersBySearch = async (req: Request, res: Response) => {
   const { search, pageNumber } = req.query;
 
   if (!search) {
-    return res.status(errorCodes.dataNotFounded).json({ message: 'Users not founded' });
+    res.status(errorCodes.dataNotFounded).json({ message: 'Users not founded' });
   }
   try {
     const users = await getUsersByPartialSearch(search, +pageNumber);

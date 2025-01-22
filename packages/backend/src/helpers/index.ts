@@ -10,12 +10,14 @@ export class CustomError extends Error {
   }
 }
 
-export function handleError(error: Error | CustomError, res: Response) {
-  if (error.code) {
+export function handleError(error: Error | CustomError | unknown, res: Response) {
+  if (error instanceof CustomError) {
     const errorObj = { code: error.code, message: error.message };
     res.status(error.code).json({ error: errorObj, });
-  } else {
+  } else if (error instanceof Error) {
     const errorObj = { message: 'Internal server error', stack: error.stack };
     res.status(errorCodes.serverError).json({ error: errorObj });
+  } else {
+    res.status(errorCodes.serverError).json('Internal server error');
   }
 }
