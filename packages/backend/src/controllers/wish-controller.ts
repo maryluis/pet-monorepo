@@ -5,7 +5,7 @@ import { handleError } from '@/helpers';
 import { IWish } from '@shared/types';
 
 interface RequestWithId extends Request {
-  id: string,
+  id?: string,
 }
 
 export const assignedWishController = async (req: RequestWithId, res: Response) => {

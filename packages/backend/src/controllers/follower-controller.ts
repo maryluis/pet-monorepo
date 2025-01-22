@@ -3,7 +3,7 @@ import { handleError } from '@/helpers';
 import { followUserService, unFollowUserService } from '@/services';
 
 interface RequestWithId extends Request {
-  id: string,
+  id?: string,
 }
 
 export const followUserController = async (req: RequestWithId, res: Response) => {

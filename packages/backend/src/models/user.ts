@@ -15,8 +15,12 @@ interface UserAttributes {
 }
 
 class User extends Model<UserAttributes> {
+  declare public id: string;
   public readonly myWishes!: Wish[];
   public readonly isAssignedWishes!: Wish[];
+  public async validatePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.getDataValue('password'));
+  }
 }
 
 User.init({

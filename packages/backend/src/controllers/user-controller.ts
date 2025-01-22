@@ -10,7 +10,7 @@ import { handleError } from '@/helpers';
 import { errorCodes } from '@shared/constants';
 
 interface RequestWithId extends Request {
-  id: string,
+  id?: string,
 }
 
 export const createUser = async (req: Request, res: Response) => {
