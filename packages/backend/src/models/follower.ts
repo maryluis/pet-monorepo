@@ -3,12 +3,14 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '@/config/database';
 
 interface FollowerAttributes {
+  id?: string;
   followerId: string;
   followedId: string;
   nickname: string;
 }
 
 class Follower extends Model<FollowerAttributes> {
+  declare public id: string;
 }
 
 Follower.init({

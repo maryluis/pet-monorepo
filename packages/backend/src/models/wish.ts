@@ -4,12 +4,21 @@ import sequelize from '@/config/database';
 import { IWish } from '../../../types';
 
 class Wish extends Model<IWish> {
+  declare public id: string;
   public get isAssigned(): boolean {
     return this.getDataValue('isAssigned') || false;
   }
 
   public set isAssigned(value: boolean) {
     this.setDataValue('isAssigned', value);
+  }
+
+  public get executorId(): string | null {
+    return this.getDataValue('executorId') || null;
+  }
+
+  public set executorId(value: string | null) {
+    this.setDataValue('executorId', (value));
   }
 
   public get isReceived(): boolean {
@@ -49,6 +58,10 @@ Wish.init({
     },
   },
   description: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  executorId: {
     type: DataTypes.STRING,
     allowNull: true,
   },

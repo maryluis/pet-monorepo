@@ -1,10 +1,11 @@
-import { handleError, CustomError } from '@/helpers';
+import { dbErrorsHandler, CustomError } from '@/helpers';
 import { Wish } from '@/models';
 
 import { errorCodes } from '@shared/constants';
 import { IWish } from '@shared/types';
 
-export const getWishesByAuthorId = async (authorId: string, executorId = '', page = 1, pageSize = 10): { wishes: IWish[], hasMore: boolean } => {
+type wishesList ={ wishes: IWish[], hasMore: boolean };
+export const getWishesByAuthorId = async (authorId: string, executorId = '', page = 1, pageSize = 10): Promise<wishesList | null> => {
   try {
     const offset = (page - 1) * pageSize;
     const whereWithoutExecutor = {
@@ -29,12 +30,12 @@ export const getWishesByAuthorId = async (authorId: string, executorId = '', pag
     }
     const hasMore = wishes.length === pageSize;
     return { wishes, hasMore };
-  } catch (error) {
-    handleError(error);
+  } catch {
+    dbErrorsHandler();
   }
 };
 
-export async function assignExecutorToWish(wishId: string, executorId: string): IWish {
+export async function assignExecutorToWish(wishId: string, executorId: string): Promise<IWish | null> {
   try {
     const wish = await Wish.findOne({
       where: {
@@ -45,6 +46,7 @@ export async function assignExecutorToWish(wishId: string, executorId: string): 
     if (!wish) {
       const error = new CustomError('Wish not found or already assigned', errorCodes.dataNotFounded);
       throw error;
+      return null;
     }
 
     wish.executorId = executorId;
@@ -53,12 +55,13 @@ export async function assignExecutorToWish(wishId: string, executorId: string): 
     await wish.save();
 
     return wish.get();
-  } catch (error) {
-    handleError(error);
+  } catch {
+    dbErrorsHandler();
+    return null;
   }
 }
 
-export async function cancelExecutorFromWish(wishId: string, executorId: string): IWish {
+export async function cancelExecutorFromWish(wishId: string, executorId: string): Promise<IWish | null> {
   try {
     const wish = await Wish.findOne({
       where: {
@@ -70,15 +73,16 @@ export async function cancelExecutorFromWish(wishId: string, executorId: string)
     if (!wish || wish.executorId !== executorId) {
       const error = new CustomError('Wish not found or already assigned', errorCodes.dataNotFounded);
       throw error;
+      return null;
     }
 
     wish.executorId = null;
     wish.isAssigned = false;
 
     await wish.save();
-
     return wish.get();
-  } catch (error) {
-    handleError(error);
+  } catch {
+    dbErrorsHandler();
+    return null;
   }
 }

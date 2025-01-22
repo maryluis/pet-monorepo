@@ -2,7 +2,8 @@ import { Op } from 'sequelize';
 
 import sequelize from '@/config/database';
 import { User, Wish, Follower } from '@/models';
-import { handleError } from '@/helpers';
+import { dbErrorsHandler } from '@/helpers';
+
 
 export const getUserById = async (id: string) => {
   try {
@@ -27,8 +28,8 @@ export const getUserById = async (id: string) => {
     }
 
     return user;
-  } catch (error) {
-    handleError(error);
+  } catch {
+    dbErrorsHandler();
   }
 };
 
@@ -106,8 +107,8 @@ export const getUserByNickname = async (nickname: string, id = '') => {
       result.amISubscribed = false;
     }
     return result;
-  } catch (error) {
-    handleError(error);
+  } catch {
+    dbErrorsHandler();
   }
 };
 
