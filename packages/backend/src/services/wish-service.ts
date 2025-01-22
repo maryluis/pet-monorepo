@@ -17,12 +17,13 @@ export const assignedWish = async (data: { executorId: string, wishId: string })
 
 export const cancelFromWish = async (data: { executorId: string, wishId: string }): Promise<IWish | null> => {
   const { executorId, wishId } = data;
-  if (!executorId || !wishId) {
+  if (executorId && wishId) {
+    const result = await cancelExecutorFromWish(wishId, executorId);
+    return result;
+  } else {
     const error = new CustomError('Wrong data', errorCodes.wrongWishData);
     throw error;
   }
-  const result = await cancelExecutorFromWish(wishId, executorId);
-  return result;
 };
 
 export const createWish = async (data: IWishCreateData): Promise<IWish | null> => {
@@ -35,7 +36,6 @@ export const createWish = async (data: IWishCreateData): Promise<IWish | null> =
   return newWish.get();
 };
 
-// type wishList = { wishes: IWish[], hasMore: boolean };
 export const getWishes = async (data: IWishGetData) => {
   const { authorId, executorId = '' } = data;
   if (!authorId) {

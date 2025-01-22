@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import sequelize from '@/config/database';
 import Wish from './wish';
 
-interface UserAttributes {
+export interface UserAttributes {
   amISubscribed?: boolean | string;
   id?: string;
   nickname: string;

@@ -3,6 +3,7 @@ import { assignedWish, createWish, getWishes, cancelFromWish } from '@/services'
 import { handleError } from '@/helpers';
 
 import { IWish } from '@shared/types';
+import { errorCodes } from '@shared/constants';
 
 interface RequestWithId extends Request {
   id?: string,
@@ -12,8 +13,12 @@ export const assignedWishController = async (req: RequestWithId, res: Response) 
   try {
     const { wishId } = req.body;
     const executorId = req.id;
-    const wish = await assignedWish({ executorId, wishId });
-    res.status(200).json({ wish });
+    if (executorId) {
+      const wish = await assignedWish({ executorId, wishId });
+      res.status(200).json({ wish });
+    } else {
+      res.status(errorCodes.dataNotFounded).json({ message: 'Wrong data' });
+    }
   } catch (error) {
     handleError(error, res);
   }
@@ -23,8 +28,12 @@ export const cancelWishController = async (req: RequestWithId, res: Response) =>
   try {
     const { wishId } = req.body;
     const executorId = req.id;
-    const wish = await cancelFromWish({ executorId, wishId });
-    res.status(200).json({ wish });
+    if (executorId) {
+      const wish = await cancelFromWish({ executorId, wishId });
+      res.status(200).json({ wish });
+    } else {
+      res.status(errorCodes.dataNotFounded).json({ message: 'Wrong data' });
+    }
   } catch (error) {
     handleError(error, res);
   }

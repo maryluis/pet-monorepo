@@ -37,12 +37,13 @@ export const login = async (req: Request, res: Response) => {
 
 export const getProfile = async (req: RequestWithId, res: Response) => {
   const { id } = req;
-  if (!id) {
-    res.status(errorCodes.dataNotFounded).json({ message: 'Profile not founded' });
-  }
   try {
-    const user = await getProfileService(id);
-    res.status(200).json(user);
+    if (id) {
+      const user = await getProfileService(id);
+      res.status(200).json(user);
+    } else {
+      res.status(errorCodes.dataNotFounded).json({ message: 'Profile not founded' });
+    }
   } catch (error) {
     handleError(error, res);
   }
@@ -75,7 +76,13 @@ export const getUserCommonInfoByNickname = async (req: RequestWithId, res: Respo
   }
 };
 
-export const getUsersBySearch = async (req: Request, res: Response) => {
+interface RequestWithSearch extends Request {
+  query : {
+    search: string;
+    pageNumber: string;
+  }
+}
+export const getUsersBySearch = async (req: RequestWithSearch, res: Response) => {
   const { search, pageNumber } = req.query;
 
   if (!search) {
