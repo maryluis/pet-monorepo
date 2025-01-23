@@ -16,7 +16,8 @@
     "paths": {
       "@/*": ["packages/backend/src/*"],
       "@shared/*": ["packages/*"]
-    }
+    },
+    "resolveJsonModule": true
   },
   "include": ["src/*"],
   "exclude": ["node_modules"]

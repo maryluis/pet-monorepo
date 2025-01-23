@@ -1,13 +1,19 @@
 import 'reflect-metadata';
-import 'module-alias/register';
+import * as path from 'path';
+import moduleAlias from 'module-alias';
+
+moduleAlias.addAliases({
+  '@shared': path.resolve(__dirname, '.../../'),
+  '@': path.resolve(__dirname, './packages/backend/src'),
+});
 
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
+import { swaggerUi, swaggerSpec } from './swagger';
 import { userRoutes, wishRoutes, followerRouters } from '@/routes';
-import { swaggerUi, swaggerSpec } from '@/swagger';
 dotenv.config();
 
 const app = express();

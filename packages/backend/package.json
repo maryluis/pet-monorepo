@@ -6,21 +6,23 @@
   "homepage": "",
   "license": "ISC",
   "main": "lib/backend.js",
-  "type": "module",
+  "type": "commonjs",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "_moduleAliases": {
-    "@": "src"
+    "@": "lib/packages/backend/src",
+    "@shared": "../../"
   },
   "files": [
     "lib"
   ],
   "scripts": {
+    "copy": "node copy-files.js",
     "test": "node ./__tests__/backend.test.js",
     "start": "node lib/index.js",
-    "build": "tsc",
+    "build": "npm run copy && babel src --out-dir lib --extensions '.ts,.js'",
     "dev": "nodemon --exec tsx src/index.ts",
     "sequelize": "sequelize-cli"
   },
@@ -42,10 +44,17 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@types/babel__core": "^7.20.5",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
     "@types/swagger-ui-express": "^4.1.7",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "ncp": "^2.0.0",
     "nodemon": "^3.1.7",
     "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",

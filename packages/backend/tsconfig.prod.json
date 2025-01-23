@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["packages/backend/lib/packages/backend/src/*"],
+      "@shared/*": ["packages/backend/lib/packages/*"]
+    }
+  }
+}
