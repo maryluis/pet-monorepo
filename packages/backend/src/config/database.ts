@@ -2,13 +2,9 @@ import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const sequelize = new Sequelize(`postgres://MarriaHlam:${process.env.DATABASE_PASS}@localhost:5432/petTasks_db`,
-  {
-    dialect: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    logging: false,
-  });
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  logging: false,
+});
 
 sequelize.authenticate()
   .then(() => {
