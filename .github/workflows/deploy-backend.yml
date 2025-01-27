@@ -4,7 +4,7 @@ on:
   push:
     branches: [ dev ]
     paths-ignore:
-      - 'packages/frontend/**'
+      - './packages/frontend/**'
 
 env:
   IS_DEPLOING: ${{ contains(github.event.commits[0].message, '#backendPatch') }}
@@ -16,8 +16,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Print working directory
-        run: pwd
+
+      - name: List files in ../../packages/frontend/
+        run: |
+          ls -al ../../packages/frontend/
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
