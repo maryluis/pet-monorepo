@@ -33,4 +33,5 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway up -- --build ../packages/backend
+          cd ../packages/backend
+          railway up -- --build
