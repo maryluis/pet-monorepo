@@ -34,4 +34,4 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           cd packages/backend
-          railway up -- --build --service pet-monorepo
+          railway up --build
