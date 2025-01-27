@@ -1,8 +1,21 @@
 import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), eslint()],
+  css: {
+    postcss: './postcss.config.ts',
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@shared': path.resolve(__dirname, '../'),
+    },
+  },
+  build: {
+    minify: 'esbuild',
+    cssCodeSplit: true,
+  }
 });

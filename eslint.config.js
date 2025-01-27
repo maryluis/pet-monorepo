@@ -23,16 +23,26 @@ export default [
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: 'module',
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+        ...globals.es2021,
+        ...globals.browser,
+      },
     },
   },
 
   {
     files: ['packages/frontend/src/**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+        ...globals.es2021,
+        ...globals.browser,
+      },
     },
   },
-
   pluginJs.configs.recommended,
 
   ...tseslint.configs.recommended,
@@ -49,14 +59,27 @@ export default [
 
   {
     rules: {
-      'no-console': ['warn'],
       'react/react-in-jsx-scope': 0,
       'react/jsx-no-target-blank': 0,
       'jsx-quotes': ['error', 'prefer-double'],
       quotes: ['error', 'single'],
-      'space-before-function-paren': ['error', 'never'],
-      'function-paren-newline': ['error', 'never'],
-      'arrow-parens': ['error', 'always'],
+      'react/jsx-tag-spacing': [
+        'warn',
+        {
+          beforeSelfClosing: 'always',
+        },
+      ],
+      'react/jsx-indent': ['error', 2],
+      'react/jsx-indent-props': ['error', 2],
+      'object-curly-spacing': ['error', 'always'],
+      'no-undef': 'off',
+      'function-paren-newline': 0,
+      'react/no-unescaped-entities': 0,
+      '@typescript-eslint/no-namespace': 0,
+      indent: ['error', 2],
+      'arrow-parens': 0,
+      '@typescript-eslint/no-require-imports': 0,
+      '@typescript-eslint/no-empty-object-type': 0,
       'space-before-blocks': ['error', 'always'],
       'no-multi-spaces': [
         'error',
@@ -77,6 +100,18 @@ export default [
       ],
       'no-trailing-spaces': 'error',
       semi: ['error', 'always'],
+    },
+  },
+  {
+    files: [
+      '*.config.js',
+      '*.config.cjs',
+      'packages/frontend/*.config.js',
+      'packages/frontend/src/*.config.js',
+      'packages/frontend/src/*.config.cjs',
+    ],
+    rules: {
+      'no-undef': 0,
     },
   },
 ];

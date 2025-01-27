@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "PG_PASSWORD",
+    "database": "railway",
+    "host": "viaduct.proxy.rlwy.net",
+    "dialect": "postgres",
+    "port": 50678,
+    "logging": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": "PG_PASSWORD",
+    "database": "railway",
+    "host": "viaduct.proxy.rlwy.net",
+    "dialect": "postgres",
+    "port": 50678,
+    "logging": false
+  },
+  "production": {
+    "username": "postgres",
+    "password": "PG_PASSWORD",
+    "database": "railway",
+    "host": "viaduct.proxy.rlwy.net",
+    "dialect": "postgres",
+    "port": 50678,
+    "logging": false
+  }
+}
