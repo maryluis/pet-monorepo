@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-COPY .env .env
+RUN if [ -f .env ]; then cp .env .env; fi
 
 RUN npm install --production
 
