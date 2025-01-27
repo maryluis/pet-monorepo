@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Railway CLI
         run: |
-          curl -sSL https://railway.app/cli | bash
+          npm install -g railway
       
       - name: Build and deploy to Railway
         env:
