@@ -17,9 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: List files in ../../packages/frontend/
+      - name: List files in ./
         run: |
-          ls -al ../../packages/frontend/
+          ls -al ./
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
