@@ -32,5 +32,5 @@ app.use('', wishRoutes);
 app.use('', followerRouters);
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log('Server is running');
 });
