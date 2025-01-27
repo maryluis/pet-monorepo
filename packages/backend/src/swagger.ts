@@ -1,5 +1,6 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+const path = require('path');
 
 const options = {
   definition: {
@@ -25,7 +26,7 @@ const options = {
       { name: 'Wishes', description: 'Create and manage wishes' },
     ],
   },
-  apis: ['./src/routes/**/*.ts'], // Вказати шлях до ваших роутів
+  apis: [path.join(__dirname, 'routes/*')]
 };
 
 const swaggerSpec = swaggerJsdoc(options);
