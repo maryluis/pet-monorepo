@@ -34,4 +34,4 @@ jobs:
           SVC_ID: eac090f9-4163-4801-8257-4ebba3ef8e40
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway up --service=${{ env.SVC_ID }} --build
+          railway up --service=${{ env.SVC_ID }}
