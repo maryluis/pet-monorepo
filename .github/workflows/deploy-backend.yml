@@ -6,9 +6,6 @@ on:
     paths-ignore:
       - './packages/frontend/**'
 
-env:
-  IS_DEPLOING: ${{ contains(github.event.head_commit.message, '#backendPatch') }}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -30,7 +27,6 @@ jobs:
           npm install -g @railway/cli
 
       - name: Build and deploy to Railway
-        if: ${{ env.IS_DEPLOING }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
