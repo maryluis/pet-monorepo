@@ -30,7 +30,7 @@ jobs:
           npm install -g @railway/cli
 
       - name: Build and deploy to Railway
-        if: ${{ env.IS_DEPLOING }}
+        if: ${{ contains(github.event.head_commit.message, '#backendPatch') }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
