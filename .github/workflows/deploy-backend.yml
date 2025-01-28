@@ -7,7 +7,7 @@ on:
       - './packages/frontend/**'
 
 env:
-  IS_DEPLOING: ${{ contains(github.event.commits[0].message, '#backendPatch') }}
+  IS_DEPLOING: ${{ contains(github.event.head_commit.message, '#backendPatch') }}
 
 jobs:
   deploy:
