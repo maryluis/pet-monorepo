@@ -26,6 +26,7 @@ export const useErrors = () => {
       navigate(Paths.loginWithFallback(location.pathname));
       return e;
     }
+    console.log('test');
     console.error(e);
   };
 };
