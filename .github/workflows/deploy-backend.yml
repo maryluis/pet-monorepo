@@ -11,7 +11,7 @@ env:
 
 jobs:
   deploy:
-    if: ${{ contains(github.event.head_commit.message, '#backendPatch') }}
+    if: contains(github.event.head_commit.message, '#backendPatch')
     runs-on: ubuntu-latest
     
     steps:
@@ -31,7 +31,7 @@ jobs:
           npm install -g @railway/cli
 
       - name: Build and deploy to Railway
-        if: ${{ contains(github.event.head_commit.message, '#backendPatch') }}
+        if: contains(github.event.head_commit.message, '#backendPatch')
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
