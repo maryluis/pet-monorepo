@@ -29,13 +29,6 @@ jobs:
         run: |
           npm install -g @railway/cli
 
-      - name: Check if deployment should proceed
-        run: |
-          if [[ "${{ env.IS_DEPLOING }}" != "true" ]]; then
-            echo "Deployment is skipped due to commit message condition."
-            exit 1
-          fi
-
       - name: Build and deploy to Railway
         if: ${{ env.IS_DEPLOING }}
         env:
