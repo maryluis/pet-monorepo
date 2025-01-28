@@ -29,6 +29,10 @@ jobs:
         run: |
           npm install -g @railway/cli
       
+      - name: Output IS_DEPLOING value
+        run: |
+          echo "IS_DEPLOING is set to: $IS_DEPLOING"
+
       - name: Build and deploy to Railway
         if: ${{ env.IS_DEPLOING == 'true' }}
         env:
