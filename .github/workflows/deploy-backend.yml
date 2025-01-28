@@ -11,7 +11,6 @@ env:
 
 jobs:
   deploy:
-    if: contains(github.event.head_commit.message, '#backendPatch')
     runs-on: ubuntu-latest
     
     steps:
@@ -30,8 +29,15 @@ jobs:
         run: |
           npm install -g @railway/cli
 
+      - name: Check if deployment should proceed
+        run: |
+          if [[ "${{ env.IS_DEPLOING }}" != "true" ]]; then
+            echo "Deployment is skipped due to commit message condition."
+            exit 1
+          fi
+
       - name: Build and deploy to Railway
-        if: contains(github.event.head_commit.message, '#backendPatch')
+        if: ${{ env.IS_DEPLOING }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
