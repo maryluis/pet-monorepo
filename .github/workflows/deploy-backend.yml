@@ -2,7 +2,7 @@ name: Deploy Backend
 
 on:
   push:
-    branches: [ staging ]
+    branches: [ dev ]
     paths-ignore:
       - './packages/frontend/**'
 
