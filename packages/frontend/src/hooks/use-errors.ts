@@ -26,7 +26,7 @@ export const useErrors = () => {
       navigate(Paths.loginWithFallback(location.pathname));
       return e;
     }
-    console.error(`error ${e}`);
+    console.error(`err ${e}`);
   };
 };
 
