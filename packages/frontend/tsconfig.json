@@ -1,7 +1,18 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../../",
+    "outDir": "./lib",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["packages/frontend/src/*"],
+      "@shared/*": ["packages/*"]
+    }
+  },
+  "include": ["src/**/*", "cypress/**/*", "cypress.config.ts"],
+  "exclude": ["node_modules", "lib"]
 }

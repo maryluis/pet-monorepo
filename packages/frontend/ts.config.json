@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./lib",
-    "module": "ESNext",
-    "esModuleInterop": true
-  },
-  "include": ["./src", "./cypress", "./cypress.config.ts"]
-}
