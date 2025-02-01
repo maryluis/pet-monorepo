@@ -11,7 +11,7 @@ export const NextHolidayCard = () => {
 
   const holidayName = nextHoliday?.countryCode === currentCode.toUpperCase() ? nextHoliday?.localName : nextHoliday?.name;
   const holidayDate = nextHoliday?.date;
-  const isTodayHoliday = isToday(nextHoliday?.date);
+  const isTodayHoliday = isToday((nextHoliday?.date || ''));
 
   const topStr = isTodayHoliday ? t('todayHoliday', { holidayName }) : t('nextHoliday', { holidayName });
   const bottomStr = isTodayHoliday ? t('congratulations') : t('dontForgetGifts');

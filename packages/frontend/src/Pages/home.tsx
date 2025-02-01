@@ -102,14 +102,14 @@ const HomePage = () => {
           <div className="flex justify-center">
             <Title>{t('findOutWishes')}</Title>
           </div>
-          <Input onChange={handleChangeSearch} placeholder={t('enterPersonNickname')} />
+          <Input onChange={handleChangeSearch} placeholder={t('enterPersonNickname')} value={search} />
           <ResultsScrollContainer
             hasItems={!!users.length}
             noResults={noResults}
             loading={isLoading || isFetching}
           >
             {users.map((item, i) => (
-              <ResultComponent key={item.id} isMe={isLogged && (id === item.id)} nickname={item.nickname} isLast={i === users.length - 1} />
+              <ResultComponent id={item.id} key={item.id} isMe={isLogged && (id === item.id)} nickname={item.nickname} isLast={i === users.length - 1} />
             ))}
             <div ref={loadMoreRef} />
           </ResultsScrollContainer>

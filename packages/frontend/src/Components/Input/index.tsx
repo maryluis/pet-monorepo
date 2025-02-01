@@ -6,7 +6,7 @@ import { COLORS_CLASSES } from '@/constants';
 interface IProps {
   label?: string,
   name?: string,
-  onChange: () => void,
+  onChange: (e: unknown) => void,
   placeholder?: string,
   type?: 'text' | 'password',
   value: string,
@@ -77,7 +77,7 @@ export const ReactFormInput = (props:IReactFormInputProps ) =>{
 
 interface ICheckboxInputProps {
   label?: string,
-  onChange: () => void,
+  onChange: (e: unknown) => void,
   value: boolean,
 }
 

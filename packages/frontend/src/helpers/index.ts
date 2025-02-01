@@ -4,6 +4,7 @@ import { API } from '@/api';
 import { holidayT } from '@/types';
 
 export class CustomError extends Error {
+  code: number;
   constructor(message, code) {
     super(message);
     this.name = this.constructor.name;

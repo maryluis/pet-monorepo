@@ -16,7 +16,7 @@ const ProfilePage = () => {
 
   const errorsHandler = useErrors();
 
-  const token = useStore((state) => state.token);
+  const token = useStore((state) => state.token) || '';
 
   const [wishTitle, setWishTitle] = useState('');
   const handleSetWishTitle = (e) => setWishTitle(e.target.value);
@@ -50,7 +50,7 @@ const ProfilePage = () => {
 
   return (
     <Card>
-      <Title >{t('Hello')}, {data?.nickname}</Title>
+      <Title >{`${t('Hello')}, ${data?.nickname}`}</Title>
       <form className="w-full" onSubmit={handleSubmit}>
         <Input label="New Wish title" onChange={handleSetWishTitle} value={wishTitle} />
         <TextArea height={200} label="New Wish description" onChange={handleSetWishDescription} value={wishDescription} />

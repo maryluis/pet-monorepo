@@ -22,7 +22,7 @@ export const WishCardActionGuest: React.FC<IWishCardActionProps> = (props:{ item
   const errorsHandler = useErrors();
 
   const { mutate: assignWish, isLoading: assignLoading } = useMutation(
-    () => API.assignWish(token, item.id), {
+    () => API.assignWish(token, (item.id || '')), {
       onSuccess: () => {
         refreshAction();
       },
@@ -33,7 +33,7 @@ export const WishCardActionGuest: React.FC<IWishCardActionProps> = (props:{ item
   );
 
   const { mutate: cancelAssignWish, isLoading: cancelAssignLoading } = useMutation(
-    () => API.cancelAssignWish(token, item.id), {
+    () => API.cancelAssignWish(token, (item.id || '')), {
       onSuccess: () => {
         refreshAction();
       },

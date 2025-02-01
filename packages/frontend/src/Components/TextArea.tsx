@@ -3,7 +3,7 @@ import { COLORS_CLASSES } from '@/constants';
 interface IProps {
   label?: string,
   name?: string,
-  onChange: () => void,
+  onChange: (e: unknown) => void,
   height?: number,
   value: string,
 }

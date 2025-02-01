@@ -10,7 +10,7 @@ import { langTypeT } from '@shared/types';
 
 const LanguageButton = () => {
   const { i18n } = useTranslation();
-  const currentLanguage: langTypeT | undefined = i18n.language;
+  const currentLanguage = i18n.language || 'us' as langTypeT;
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -33,11 +33,11 @@ const LanguageButton = () => {
 
   const langOptions = {
     us: {
-      value: 'us',
+      value: 'us' as langTypeT,
       img: En,
     },
     ua: {
-      value: 'ua',
+      value: 'ua' as langTypeT,
       img: Ukr,
     }
   };

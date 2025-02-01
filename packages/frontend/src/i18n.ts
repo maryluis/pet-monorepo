@@ -17,7 +17,9 @@ i18n
     react: {
       useSuspense: true,
     },
-    loadPath: '/locales/{{lng}}/{{ns}}.json',
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
   });
 
   declare module 'react-i18next' {
