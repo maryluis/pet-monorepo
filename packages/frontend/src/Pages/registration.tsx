@@ -15,8 +15,8 @@ import AuthFormContainer from '@/components/AuthFormContainer';
 import { getTokenCookie, setTokenCookie } from '@/cookies';
 import { useErrors } from '@/hooks';
 import { useStore } from '@/zustand';
-import { IUserRegistration } from '@../../types';
-import { nicknameRegex, passwordRegex } from '../../../constants';
+import { IUserRegistration, IUserLogin } from '@shared/types';
+import { nicknameRegex, passwordRegex } from '@shared/constants';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const RegistrationPage = () => {
   );
 
   const { mutate: mutateLogin, isLoading: loadingLogin } = useMutation(
-    (loginData: IUserRegistration) => API.login(loginData), {
+    (loginData: IUserLogin) => API.login(loginData), {
       onSuccess: async (data) => {
         if (data.token) {
           await setTokenCookie(data.token);
@@ -90,7 +90,7 @@ const RegistrationPage = () => {
             errors={errors}
             label={t('nickname')}
             name="nickname"
-            pattern={nicknameRegex}
+            pattern={{ value: nicknameRegex.toString() }}
             register={register}
             required
           />
@@ -98,7 +98,7 @@ const RegistrationPage = () => {
             errors={errors}
             label={t('password')}
             name="password"
-            pattern={passwordRegex}
+            pattern={{ value: passwordRegex.toString() }}
             register={register}
             required
             type="password"

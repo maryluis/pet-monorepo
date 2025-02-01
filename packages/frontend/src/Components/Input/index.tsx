@@ -38,7 +38,7 @@ interface IReactFormInputProps {
   register: UseFormRegister,
   required?: boolean,
   type?: 'text' | 'password',
-  validate?: () => bool | string,
+  validate?: (value: unknown) => boolean | string,
 }
 
 export const ReactFormInput = (props:IReactFormInputProps ) =>{

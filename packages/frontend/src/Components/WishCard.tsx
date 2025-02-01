@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 import { Collapse } from 'react-collapse';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +9,10 @@ import { AnchorDown } from '@/icons';
 import { IWish } from '@shared/types';
 
 interface IProps {
-  ActionComponent: ReactNode,
-  item: IWish,
-  spoilerMode: boolean
+  ActionComponent: React.ComponentType<{ item: IWish; refreshAction: () => void }>;
+  item: IWish;
+  refreshAction: () => void;
+  spoilerMode: boolean;
 };
 
 export const WishCard = (props: IProps) => {

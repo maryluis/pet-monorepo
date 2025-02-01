@@ -7,7 +7,7 @@ import API from '@/api';
 import { useErrors, useAuth, usePrivateAction } from '@/hooks';
 import { Checkbox } from '@/components/Input';
 import WishCard from '@/components/WishCard';
-import Button from '@/components/button';
+import Button from '@/components/Button';
 import CountLabel from '@/components/CountLabel';
 import Title from '@/components/Title';
 import Card from '@/components/Card';
@@ -22,7 +22,7 @@ const UserPage = () => {
 
   const { token } = useAuth();
 
-  const { nickname } = useParams();
+  const { nickname = '' } = useParams();
   const errorsHandler = useErrors();
 
   const { data, refetch } = useQuery(

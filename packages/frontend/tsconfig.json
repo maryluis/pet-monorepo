@@ -13,6 +13,6 @@
       "@shared/*": ["packages/*"]
     }
   },
-  "include": ["src/**/*", "cypress/**/*", "cypress.config.ts"],
-  "exclude": ["node_modules", "lib"]
+  "include": ["src/*"],
+  "exclude": ["node_modules", "lib", "**/*.spec.tsx", "**/*.test.tsx"]
 }

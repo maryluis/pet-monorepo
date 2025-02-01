@@ -1,4 +1,4 @@
-import Button from '../../src/components/Button';
+import Button from '@/components/Button';
 
 describe('<Button />', () => {
   it('Should mount', () => {

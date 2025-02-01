@@ -9,7 +9,12 @@ import Paths from '@/paths';
 
 import { IWish } from '@shared/types';
 
-export const WishCardActionGuest = (props:{ item: IWish, refreshAction: () => void } ) => {
+interface IWishCardActionProps {
+  item: IWish;
+  refreshAction: () => void;
+}
+
+export const WishCardActionGuest: React.FC<IWishCardActionProps> = (props:{ item: IWish, refreshAction: () => void } ) => {
   const { item, refreshAction } = props;
   const { isLogged, token, id } = useAuth();
   const location = useLocation();

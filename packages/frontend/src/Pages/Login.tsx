@@ -78,7 +78,7 @@ export default function LoginPage() {
             errors={errors}
             label={t('nickname')}
             name="nickname"
-            pattern={nicknameRegex}
+            pattern={{ value: nicknameRegex.toString() }}
             register={register}
             required
           />
@@ -87,7 +87,7 @@ export default function LoginPage() {
             errors={errors}
             label={t('password')}
             name="password"
-            pattern={passwordRegex}
+            pattern={{ value: passwordRegex.toString() }}
             register={register}
             required
             type="password"
