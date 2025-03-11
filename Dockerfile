@@ -8,6 +8,8 @@ RUN rm -rf ./packages/backend
 
 WORKDIR /app/packages/frontend
 
+RUN npm install -g npm@11.2.0
+
 RUN npm install --legacy-peer-deps
 
 RUN npm run build
