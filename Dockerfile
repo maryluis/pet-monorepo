@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:19.5.0-alpine
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN rm -rf ./packages/backend
 
 WORKDIR /app/packages/frontend
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 RUN npm run build
 
