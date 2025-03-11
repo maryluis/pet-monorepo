@@ -8,11 +8,7 @@ RUN rm -rf ./packages/backend
 
 WORKDIR /app/packages/frontend
 
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-  
-RUN apt-get install -y nodejs
-
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 RUN npm run build
 
