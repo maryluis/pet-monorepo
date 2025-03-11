@@ -2,13 +2,13 @@ FROM node:19.5.0-alpine
 
 WORKDIR /app
 
-COPY . /app
+COPY . .
 
 RUN rm -rf ./packages/backend
 
 WORKDIR /app/packages/frontend
 
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --prefix /app/packages/frontend
 
 RUN npm run build
 
