@@ -25,6 +25,6 @@ jobs:
 
       - name: Build and deploy to Railway
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_FRONTEND }}
         run: |
           railway up --service=empowering-hope
