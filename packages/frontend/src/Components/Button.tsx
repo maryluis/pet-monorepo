@@ -7,7 +7,7 @@ type onClickT = (e: MouseEvent<HTMLButtonElement>) => void | Promise<void>;
 interface IProps {
   children: ReactNode | string,
   disabled?: boolean,
-  loading?: bool,
+  loading?: boolean,
   onClick?: onClickT,
   href?: string,
   type?: 'button' | 'link',

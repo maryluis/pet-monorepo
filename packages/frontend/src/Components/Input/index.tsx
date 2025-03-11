@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { UseFormRegister, FieldErrors, FieldValues, ValidationRule, Path } from 'react-hook-form';
 import classNames from 'classnames';
 
 import { COLORS_CLASSES } from '@/constants';
@@ -29,20 +29,20 @@ export const Input = (props: IProps) =>{
   );
 };
 
-interface IReactFormInputProps {
+interface IReactFormInputProps <T extends FieldValues> {
   autocomplete?: string,
   errors?: FieldErrors,
   label: string
-  name: string,
-  pattern?: { value: string, }
-  register: UseFormRegister,
+  name: Path<T>,
+  pattern?: ValidationRule<RegExp>;
+  register: UseFormRegister<T>,
   required?: boolean,
   type?: 'text' | 'password',
   validate?: (value: unknown) => boolean | string,
 }
 
-export const ReactFormInput = (props:IReactFormInputProps ) =>{
-  const { autocomplete = '', errors = {}, label, name, pattern = {}, register, required, type = 'text', validate = () => true } = props;
+export const ReactFormInput = <T extends {}>(props: IReactFormInputProps<T> ) =>{
+  const { autocomplete = '', errors = {}, label, name, pattern, register, required, type = 'text', validate = () => true } = props;
   const isError = errors[name];
 
   const caretClassName = `caret-${COLORS_CLASSES.primaryGreen}`;
@@ -67,7 +67,6 @@ export const ReactFormInput = (props:IReactFormInputProps ) =>{
             'text-pink-600': isError
           })
         }
-        name={name}
         {...register(name, { required, pattern, validate })}
         type={type}
       />
@@ -99,7 +98,7 @@ export const Checkbox = (props: ICheckboxInputProps) => {
           className="absolute w-full h-full z-10 opacity-0 cursor-pointer"
           onChange={onChange}
           type="checkbox"
-          value={value}
+          checked={value}
         />
       </div>
     </div>

@@ -74,11 +74,11 @@ export default function LoginPage() {
       <Card className="max-w-md ">
         <Title>{t('login')}</Title>
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-          <ReactFormInput
+          <ReactFormInput<IUserLogin>
             errors={errors}
             label={t('nickname')}
             name="nickname"
-            pattern={{ value: nicknameRegex.toString() }}
+            pattern={nicknameRegex}
             register={register}
             required
           />
@@ -87,7 +87,7 @@ export default function LoginPage() {
             errors={errors}
             label={t('password')}
             name="password"
-            pattern={{ value: passwordRegex.toString() }}
+            pattern={passwordRegex}
             register={register}
             required
             type="password"

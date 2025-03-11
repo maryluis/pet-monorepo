@@ -129,7 +129,7 @@ const getUsersByParticularSearch = async (search: string, pageNumber = 1, token 
       'Content-Type': 'application/json',
     } : undefined;
 
-    const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber), { headers });
+    const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber.toString()), { headers });
     return response.data;
   } catch (error) {
     handleError(error);

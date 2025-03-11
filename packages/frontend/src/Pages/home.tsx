@@ -100,15 +100,23 @@ const HomePage = () => {
       <Card className="min-w-full min-h-72">
         <div className="flex flex-col w-full">
           <div className="flex justify-center">
-            <Title>{t('findOutWishes')}</Title>
+            <Title>
+              {t('findOutWishes')}
+            </Title>
           </div>
-          <Input onChange={handleChangeSearch} placeholder={t('enterPersonNickname')} value={search} />
+          <Input
+            onChange={handleChangeSearch}
+            placeholder={
+              t('enterPersonNickname')
+            }
+            value={search}
+          />
           <ResultsScrollContainer
             hasItems={!!users.length}
             noResults={noResults}
             loading={isLoading || isFetching}
           >
-            {users.map((item, i) => (
+            {(users || []).map((item, i) => (
               <ResultComponent id={item.id} key={item.id} isMe={isLogged && (id === item.id)} nickname={item.nickname} isLast={i === users.length - 1} />
             ))}
             <div ref={loadMoreRef} />

@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 import backgroundImage from '@/assets/background.jpg';
 
 export const FullScreenContainer = (props: { children: ReactNode }) => {
   const { children } = props;
 
-  const style = {
+  const style: CSSProperties = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -12,7 +12,7 @@ export const FullScreenContainer = (props: { children: ReactNode }) => {
     position: 'fixed',
     top: 0,
     width: '100%',
-    zIndex: 1.
+    zIndex: 1
   };
 
 
