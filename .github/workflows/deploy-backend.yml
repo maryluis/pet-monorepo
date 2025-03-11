@@ -3,8 +3,6 @@ name: Deploy Backend
 on:
   push:
     branches: [ staging ]
-    paths-ignore:
-      - './packages/frontend/**'
 
 jobs:
   deploy:
