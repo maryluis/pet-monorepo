@@ -1,10 +1,8 @@
-FROM node:19.5.0-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
 COPY packages ./packages
-
-RUN rm -rf ./packages/backend
 
 WORKDIR /app/packages/frontend
 
