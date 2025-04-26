@@ -7,11 +7,12 @@ import API from '@/api';
 import { useErrors, useAuth, usePrivateAction } from '@/hooks';
 import { Checkbox } from '@/components/Input';
 import WishCard from '@/components/WishCard';
-import Button from '@/components/button';
+import Button from '@/components/Button';
 import CountLabel from '@/components/CountLabel';
 import Title from '@/components/Title';
 import Card from '@/components/Card';
 import { WishCardActionGuest } from '@/components/WishCardActionComponents';
+import { CustomError } from '@/helpers';
 
 const UserPage = () => {
   const { t } = useTranslation();
@@ -27,10 +28,10 @@ const UserPage = () => {
 
   const { data, refetch } = useQuery(
     ['user', token],
-    () => API.getUserByNickname(nickname, token),
+    () => API.getUserByNickname(nickname || '', token),
     {
       enabled: !!nickname || typeof token !== 'string',
-      onError: async (err: Error) => {
+      onError: async (err: CustomError) => {
         errorsHandler(err);
       }
     }
@@ -41,7 +42,7 @@ const UserPage = () => {
     () => API.getWishes(data.id),
     {
       enabled: !!data,
-      onError: async (err: Error) => {
+      onError: async (err: CustomError) => {
         errorsHandler(err);
       }
     }
@@ -56,7 +57,7 @@ const UserPage = () => {
       onSuccess: async () => {
         refetch();
       },
-      onError: async (error: Error) => {
+      onError: async (error: CustomError) => {
         await errorsHandler(error);
       },
     }
@@ -67,7 +68,7 @@ const UserPage = () => {
       onSuccess: async () => {
         refetch();
       },
-      onError: async (error: Error) => {
+      onError: async (error: CustomError) => {
         await errorsHandler(error);
       },
     }

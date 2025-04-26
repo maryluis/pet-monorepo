@@ -32,5 +32,5 @@ app.use('', _routes.userRoutes);
 app.use('', _routes.wishRoutes);
 app.use('', _routes.followerRouters);
 app.listen(port, function () {
-  console.log("Server is running on http://localhost:".concat(port));
+  console.log('Server is running');
 });

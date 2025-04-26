@@ -12,7 +12,7 @@ import '@/i18n';
 
 const ErrorPage = lazy(() => import('@/pages/error'));
 const HomePage = lazy(() => import('@/pages/home'));
-const LoginPage = lazy(() => import('@/pages/login'));
+const LoginPage = lazy(() => import('@/pages/Login'));
 const ProfilePage = lazy(() => import('@/pages/profile'));
 const RegistrationPage = lazy(() => import('@/pages/registration'));
 const UserPage = lazy(() => import('@/pages/user'));
@@ -44,24 +44,14 @@ const router = createBrowserRouter([
     path: '*',
     element: <ErrorPage />,
   },
-],
-{
-  future: {
-    v7_relativeSplatPath: true,
-    v7_partialHydration: true,
-    v7_startTransition: true,
-    v7_normalizeFormMethod: true,
-    v7_fetcherPersist: true,
-    v7_skipActionErrorRevalidation: true,
-  },
-});
+]);
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <FullScreenContainer>
         <Suspense fallback={<div className="w-screen flex justify-center"><BigLoader /></div>}>
-          <RouterProvider router={router} future={{ v7_startTransition: true }} />
+          <RouterProvider router={router} />
         </Suspense>
       </FullScreenContainer>
     </QueryClientProvider>

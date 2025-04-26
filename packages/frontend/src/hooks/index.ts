@@ -6,7 +6,7 @@ import useErrors from './use-errors';
 import useAuth from './use-auth';
 import usePrivateAction from './use-private-action';
 
-const useNearestHoliday: holidayT | null = (countryCode: string = 'US') => {
+const useNearestHoliday = (countryCode: string = 'US'): holidayT | null => {
   const [nextHoliday, setNextHoliday] = useState<holidayT | null>(null);
   useEffect(() => {
     const getHoliday = async () => {

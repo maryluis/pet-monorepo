@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 interface IProps {
   children: ReactNode | string,
   disabled?: boolean,
-  loading?: bool,
-  onClick?: () => void,
+  loading?: boolean,
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void,
   href?: string,
   type?: 'button' | 'link',
 }

@@ -1,6 +1,6 @@
 import cookies from 'js-cookie';
 import { tokenT } from '@/types';
-import { langType } from '@shared/types';
+import { langTypeT } from '@shared/types';
 import { default_lang } from '@shared/constants';
 
 const KEY_TOKEN = 'token_user';
@@ -14,8 +14,8 @@ export const setTokenCookie = (token: string) => {
   });
 };
 
-export const getTokenCookie = async (): tokenT => {
-  const token = await cookies.get(KEY_TOKEN);
+export const getTokenCookie = async () => {
+  const token = await cookies.get(KEY_TOKEN) as tokenT;
   if (token) {
     return token;
   }
@@ -28,7 +28,7 @@ export const deleteTokenCookie = () => {
 
 export const KEY_LANG = 'lang_cookie';
 
-export const setLangCookie = (lang: langType) => {
+export const setLangCookie = (lang: langTypeT) => {
   cookies.set(KEY_LANG, lang, {
     expires: 30,
     path: '/',
@@ -36,8 +36,8 @@ export const setLangCookie = (lang: langType) => {
   });
 };
 
-export const getLangCookie = async (): langType => {
-  const lang = await cookies.get(KEY_LANG);
+export const getLangCookie = async () => {
+  const lang = await cookies.get(KEY_LANG) as langTypeT;
   if (lang) {
     return lang;
   }

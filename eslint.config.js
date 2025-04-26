@@ -112,6 +112,7 @@ export default [
     ],
     rules: {
       'no-undef': 0,
+      '@typescript-eslint/ban-ts-comment': 'off'
     },
   },
 ];

@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, ChangeEvent } from 'react';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { useInView } from 'react-intersection-observer';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
 import { useErrors, useAuth } from '@/hooks';
@@ -13,6 +13,7 @@ import Input from '@/components/Input';
 import Link from '@/components/Link';
 import Title from '@/components/Title';
 import Paths from '@/paths';
+import { CustomError } from '@/helpers';
 
 type usersResultsT = { id: string, nickname: string };
 
@@ -48,7 +49,7 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const handleChangeSearch = (e) => debouncedSearch(e.target.value);
+  const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => debouncedSearch(e.target.value);
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
@@ -88,7 +89,7 @@ const HomePage = () => {
         }
         setHasMore(res.hasMore);
       },
-      onError: async (err: Error) => {
+      onError: async (err: CustomError) => {
         setNoResults(true);
         errorsHandler(err);
       }
@@ -109,7 +110,7 @@ const HomePage = () => {
             loading={isLoading || isFetching}
           >
             {users.map((item, i) => (
-              <ResultComponent key={item.id} isMe={isLogged && (id === item.id)} nickname={item.nickname} isLast={i === users.length - 1} />
+              <ResultComponent key={item.id} id={item.id} isMe={isLogged && (id === item.id)} nickname={item.nickname} isLast={i === users.length - 1} />
             ))}
             <div ref={loadMoreRef} />
           </ResultsScrollContainer>

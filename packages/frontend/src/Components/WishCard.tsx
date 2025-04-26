@@ -10,10 +10,11 @@ import { AnchorDown } from '@/icons';
 import { IWish } from '@shared/types';
 
 interface IProps {
-  ActionComponent: ReactNode,
-  item: IWish,
-  spoilerMode: boolean
-};
+  ActionComponent: (props: { item: IWish; refreshAction?: () => void }) => ReactNode;
+  item: IWish;
+  refreshAction?: () => void,
+  spoilerMode: boolean;
+}
 
 export const WishCard = (props: IProps) => {
   const { ActionComponent, item, spoilerMode } = props;

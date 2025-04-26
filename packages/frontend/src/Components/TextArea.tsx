@@ -1,9 +1,11 @@
+import { type ChangeEvent } from 'react';
+
 import { COLORS_CLASSES } from '@/constants';
 
 interface IProps {
   label?: string,
   name?: string,
-  onChange: () => void,
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void,
   height?: number,
   value: string,
 }

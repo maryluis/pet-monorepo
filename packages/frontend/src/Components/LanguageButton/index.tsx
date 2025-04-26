@@ -10,7 +10,7 @@ import { langTypeT } from '@shared/types';
 
 const LanguageButton = () => {
   const { i18n } = useTranslation();
-  const currentLanguage: langTypeT | undefined = i18n.language;
+  const currentLanguage = i18n.language as langTypeT || 'en' as langTypeT;
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -31,7 +31,12 @@ const LanguageButton = () => {
     setLang();
   }, [currentLanguage, i18n]);
 
-  const langOptions = {
+  type LangOption = {
+    value: langTypeT;
+    img: string;
+  };
+
+  const langOptions: Record<langTypeT, LangOption> = {
     us: {
       value: 'us',
       img: En,
@@ -42,7 +47,7 @@ const LanguageButton = () => {
     }
   };
 
-  const actualLang = langOptions[currentLanguage];
+  const actualLang = langOptions[currentLanguage] as { value: langTypeT, img: string };
   const langSelectOptions = Object.values(langOptions);
 
   return (
