@@ -20,6 +20,7 @@ import { useErrors } from '@/hooks';
 import { useStore } from '@/zustand';
 import { IUserLogin } from '@shared/types';
 import { nicknameRegex, passwordRegex } from '@shared/constants';
+import { CustomError } from '@/helpers';
 
 export default function LoginPage() {
   const location = useLocation();
@@ -49,7 +50,7 @@ export default function LoginPage() {
           }
         }
       },
-      onError: async (error: Error) => {
+      onError: async (error: CustomError) => {
         const res = await errorsHandler(error, requestTypes.auth);
         setError(res?.message);
       },
@@ -78,7 +79,7 @@ export default function LoginPage() {
             errors={errors}
             label={t('nickname')}
             name="nickname"
-            pattern={nicknameRegex}
+            pattern={{ value: nicknameRegex, message: '' }}
             register={register}
             required
           />
@@ -87,7 +88,7 @@ export default function LoginPage() {
             errors={errors}
             label={t('password')}
             name="password"
-            pattern={passwordRegex}
+            pattern={{ value: passwordRegex, message: '' }}
             register={register}
             required
             type="password"

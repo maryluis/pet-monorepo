@@ -13,6 +13,7 @@ import Link from '@/components/Link';
 import Paths from '@/paths';
 import AuthFormContainer from '@/components/AuthFormContainer';
 import { getTokenCookie, setTokenCookie } from '@/cookies';
+import { CustomError } from '@/helpers';
 import { useErrors } from '@/hooks';
 import { useStore } from '@/zustand';
 import { IUserRegistration, IUserLogin } from '@shared/types';
@@ -26,13 +27,13 @@ const RegistrationPage = () => {
   const addToken = useStore((state) => state.addToken);
 
   const { mutate, isLoading: loadingRegistration } = useMutation(
-    (userData: IUserRegistration) => API.createUser(userData), {
+    (userData: IUserLogin) => API.createUser(userData), {
       onSuccess: async (_, variables) => {
         const loginData = { nickname: variables.nickname, password: variables.password };
         mutateLogin(loginData);
       },
-      onError: async (error: Error) => {
-        const res = await errorsHandler(error);
+      onError: async (error: CustomError) => {
+        const res = await errorsHandler(error as CustomError);
         setError(res?.message);
       },
     }
@@ -47,7 +48,7 @@ const RegistrationPage = () => {
           navigate(Paths.profile);
         }
       },
-      onError: async (error: Error) => {
+      onError: async (error: CustomError) => {
         const res = await errorsHandler(error);
         setError(res?.message);
       },
@@ -76,8 +77,8 @@ const RegistrationPage = () => {
     try {
       await mutate(userData);
     } catch (e) {
-      const res = await errorsHandler(e);
-      setError(res);
+      const res = await errorsHandler(e as CustomError);
+      setError(res.message);
     }
   };
 
@@ -90,7 +91,7 @@ const RegistrationPage = () => {
             errors={errors}
             label={t('nickname')}
             name="nickname"
-            pattern={nicknameRegex}
+            pattern={{ value: nicknameRegex, message: '' }}
             register={register}
             required
           />
@@ -98,7 +99,7 @@ const RegistrationPage = () => {
             errors={errors}
             label={t('password')}
             name="password"
-            pattern={passwordRegex}
+            pattern={{ value: passwordRegex, message: '' }}
             register={register}
             required
             type="password"
@@ -110,7 +111,7 @@ const RegistrationPage = () => {
             register={register}
             required
             type="password"
-            validate={(value) => value === watch('password') || 'Passwords do not match'}
+            validate={(value: string) => value === watch('password') ? true : 'Passwords do not match'}
           />
           <div className="flex justify-between">
             <div className="text-pink-600 h-6">{error}</div>

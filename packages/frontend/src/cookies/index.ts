@@ -14,8 +14,8 @@ export const setTokenCookie = (token: string) => {
   });
 };
 
-export const getTokenCookie = async (): Promise<tokenT> => {
-  const token = await cookies.get(KEY_TOKEN);
+export const getTokenCookie = async () => {
+  const token = await cookies.get(KEY_TOKEN) as tokenT;
   if (token) {
     return token;
   }
@@ -37,8 +37,8 @@ export const setLangCookie = (lang: langTypeT) => {
   });
 };
 
-export const getLangCookie = async (): Promise<langTypeT> => {
-  const lang = await cookies.get(KEY_LANG);
+export const getLangCookie = async () => {
+  const lang = await cookies.get(KEY_LANG) as langTypeT;
   if (lang) {
     return lang;
   }

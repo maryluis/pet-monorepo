@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
@@ -8,13 +9,9 @@ import Button from '@/components/Button';
 import Paths from '@/paths';
 
 import { IWish } from '@shared/types';
+import { CustomError } from '@/helpers';
 
-interface IWishCardActionProps {
-  item: IWish;
-  refreshAction: () => void;
-}
-
-export const WishCardActionGuest: React.FC<IWishCardActionProps> = (props:{ item: IWish, refreshAction: () => void } ) => {
+export const WishCardActionGuest = (props:{ item: IWish, refreshAction?: () => void } ): ReactNode => {
   const { item, refreshAction } = props;
   const { isLogged, token, id } = useAuth();
   const location = useLocation();
@@ -22,22 +19,24 @@ export const WishCardActionGuest: React.FC<IWishCardActionProps> = (props:{ item
   const errorsHandler = useErrors();
 
   const { mutate: assignWish, isLoading: assignLoading } = useMutation(
-    () => API.assignWish(token, (item.id || '')), {
+    () => API.assignWish(token, item.id || ''), {
       onSuccess: () => {
-        refreshAction();
+        if (refreshAction) {
+          refreshAction();
+        }
       },
-      onError: (error: Error) => {
+      onError: (error: CustomError) => {
         errorsHandler(error);
       },
     }
   );
 
   const { mutate: cancelAssignWish, isLoading: cancelAssignLoading } = useMutation(
-    () => API.cancelAssignWish(token, (item.id || '')), {
+    () => API.cancelAssignWish(token, item.id || ''), {
       onSuccess: () => {
-        refreshAction();
+        if (refreshAction) refreshAction();
       },
-      onError: (error: Error) => {
+      onError: (error: CustomError) => {
         errorsHandler(error);
       },
     }

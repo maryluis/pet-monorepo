@@ -1,20 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { isToday } from 'date-fns';
 
+import { isToday } from 'date-fns';
 import { useNearestHoliday } from '@/hooks';
 import { holidayT } from '@/types';
 
-import { langTypeT } from '@shared/types';
-import { default_lang, lang_variants } from '@shared/constants';
-
 export const NextHolidayCard = () => {
   const { i18n, t } = useTranslation();
-  const currentCode = lang_variants[i18n.language] ? lang_variants[i18n.language] : default_lang as langTypeT;
+  const currentCode = i18n?.language || 'US';
   const nextHoliday: holidayT | null = useNearestHoliday(currentCode);
 
   const holidayName = nextHoliday?.countryCode === currentCode.toUpperCase() ? nextHoliday?.localName : nextHoliday?.name;
   const holidayDate = nextHoliday?.date;
-  const isTodayHoliday = isToday((nextHoliday?.date || ''));
+  const isTodayHoliday = nextHoliday ? isToday(nextHoliday?.date) : false;
 
   const topStr = isTodayHoliday ? t('todayHoliday', { holidayName }) : t('nextHoliday', { holidayName });
   const bottomStr = isTodayHoliday ? t('congratulations') : t('dontForgetGifts');

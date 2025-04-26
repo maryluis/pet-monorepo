@@ -1,4 +1,8 @@
-import { UseFormRegister, FieldErrors, FieldValues, ValidationRule, Path } from 'react-hook-form';
+import { type ChangeEvent } from 'react';
+import { FieldValues,
+  FieldErrors,
+  UseFormRegister,
+  FieldPath, } from 'react-hook-form';
 import classNames from 'classnames';
 
 import { COLORS_CLASSES } from '@/constants';
@@ -6,10 +10,10 @@ import { COLORS_CLASSES } from '@/constants';
 interface IProps {
   label?: string,
   name?: string,
-  onChange: (e: unknown) => void,
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void,
   placeholder?: string,
   type?: 'text' | 'password',
-  value: string,
+  value?: string,
 }
 
 export const Input = (props: IProps) =>{
@@ -20,6 +24,7 @@ export const Input = (props: IProps) =>{
       <input
         className={`disabled:border-slate-200 invalid:border-pink-500 invalid:text-pink-600 h-10 pl-4 shadow-md caret-blue-500 focus:caret-${COLORS_CLASSES.primaryGreen} focus:outline-none`}
         name={name}
+        style={{ backgroundColor: 'transparent', color: 'black', }}
         onChange={onChange}
         placeholder={placeholder}
         type={type}
@@ -29,21 +34,24 @@ export const Input = (props: IProps) =>{
   );
 };
 
-interface IReactFormInputProps <T extends FieldValues> {
-  autocomplete?: string,
-  errors?: FieldErrors,
-  label: string
-  name: Path<T>,
-  pattern?: ValidationRule<RegExp>;
-  register: UseFormRegister<T>,
-  required?: boolean,
-  type?: 'text' | 'password',
-  validate?: (value: unknown) => boolean | string,
+interface IReactFormInputProps<T extends FieldValues> {
+  autocomplete?: string;
+  errors?: FieldErrors<T>;
+  label: string;
+  name: FieldPath<T>;
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+  register: UseFormRegister<T>;
+  required?: boolean;
+  type?: 'text' | 'password';
+  validate?: (value: string) => boolean | string;
 }
 
-export const ReactFormInput = <T extends {}>(props: IReactFormInputProps<T> ) =>{
-  const { autocomplete = '', errors = {}, label, name, pattern, register, required, type = 'text', validate = () => true } = props;
-  const isError = errors[name];
+export const ReactFormInput = <T extends FieldValues>(props: IReactFormInputProps<T>) => {
+  const { autocomplete = '', errors, label, name, pattern, register, required, type = 'text', validate = () => true } = props;
+  const isError = errors && errors[name];
 
   const caretClassName = `caret-${COLORS_CLASSES.primaryGreen}`;
 
@@ -67,7 +75,12 @@ export const ReactFormInput = <T extends {}>(props: IReactFormInputProps<T> ) =>
             'text-pink-600': isError
           })
         }
-        {...register(name, { required, pattern, validate })}
+        style={{ backgroundColor: 'transparent', color: 'black', }}
+        {...register(name, {
+          required,
+          ...(pattern && { pattern }),
+          validate
+        })}
         type={type}
       />
     </div>

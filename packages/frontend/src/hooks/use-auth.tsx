@@ -10,7 +10,7 @@ const useAuth = () => {
     if (token && id) {
       setResult({ token, isLogged: !!token, id });
     } else {
-      setResult({ token: '', isLogged: !!token, id: '' });
+      setResult({ token: token ?? '', isLogged: !!token, id: '' });
     }
   }, [token]);
   return result;

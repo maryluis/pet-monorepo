@@ -33,8 +33,8 @@ export const Header = (props: { children: ReactNode, isLogged: boolean }) => {
   const toHomePage = () => navigate(Paths.home);
   return (
     <header
-      style={{ zIndex: 3 }}
-      className={`p-3 w-full h-full flex justify-between items-center sticky top-0 z-3 ${isScrolled ? 'bg-black bg-opacity-70' : 'bg-transparent'} hover:bg-opacity-70`}
+      style={{ backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.7)' : 'unset', zIndex: 3 }}
+      className="p-3 w-full h-full flex justify-between items-center sticky top-0"
     >
       <div className="cursor-pointer" onClick={toHomePage}>
         <PresentLogo />

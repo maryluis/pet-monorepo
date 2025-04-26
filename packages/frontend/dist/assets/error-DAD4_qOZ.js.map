@@ -1,1 +1,0 @@
-{"version":3,"file":"error-DAD4_qOZ.js","sources":["../../src/pages/error.tsx"],"sourcesContent":["const ErrorPage = () => {\n  return <h2>Future ErrorPage</h2>;\n};\n\nexport default ErrorPage;\n"],"names":["ErrorPage","jsx"],"mappings":"wCAAA,MAAMA,EAAY,IACTC,EAAA,IAAC,MAAG,SAAgB,kBAAA,CAAA"}

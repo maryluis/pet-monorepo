@@ -7,12 +7,12 @@ import { Collapse } from 'react-collapse';
 import Ukr from '@/assets/ukraine.svg';
 import En from '@/assets/england.svg';
 import { setLangCookie, getLangCookie } from '@/cookies';
-import { default_lang, lang_variants } from '@shared/constants';
+import { default_lang } from '@shared/constants';
 import { langTypeT } from '@shared/types';
 
 const LanguageButton = () => {
   const { i18n } = useTranslation();
-  const currentLanguage = lang_variants[i18n.language] ? lang_variants[i18n.language] : default_lang as langTypeT;
+  const currentLanguage = i18n.language as langTypeT || 'en' as langTypeT;
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -33,7 +33,12 @@ const LanguageButton = () => {
     setLang();
   }, [currentLanguage, i18n]);
 
-  const langOptions = {
+  type LangOption = {
+    value: langTypeT;
+    img: string;
+  };
+
+  const langOptions: Record<langTypeT, LangOption> = {
     us: {
       value: 'us' as langTypeT,
       img: En,
@@ -44,17 +49,8 @@ const LanguageButton = () => {
     }
   };
 
-  const actualLang = langOptions[currentLanguage] || langOptions[default_lang];
-  const langSelectOptions = [
-    {
-      value: 'us' as langTypeT,
-      img: En,
-    },
-    {
-      value: 'ua' as langTypeT,
-      img: Ukr,
-    }
-  ];
+  const actualLang = langOptions[currentLanguage] as { value: langTypeT, img: string };
+  const langSelectOptions = Object.values(langOptions);
 
   return (
     <div className="relative mr-3">

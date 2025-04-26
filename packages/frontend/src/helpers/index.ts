@@ -1,11 +1,11 @@
 import { isFuture, isToday, getYear } from 'date-fns';
 
 import { API } from '@/api';
-import { holidayT } from '@/types';
+import { holidayT, IErrorData } from '@/types';
 
 export class CustomError extends Error {
   code: number;
-  constructor(message, code) {
+  constructor(message: string, code: number) {
     super(message);
     this.name = this.constructor.name;
     this.code = code || 400;
@@ -13,7 +13,8 @@ export class CustomError extends Error {
   }
 }
 
-export const handleError = (errorData) => {
+
+export const handleError = (errorData: IErrorData) => {
   if (errorData?.status === 409) {
     const error = new CustomError('Already exists', 409);
     throw error;
@@ -50,6 +51,6 @@ export const getNearestHoliday = async (countryCode: string = 'US') => {
     }
     return holidayResult;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };

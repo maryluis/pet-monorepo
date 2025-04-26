@@ -8,3 +8,8 @@ export type holidayT = {
   localName: string,
   name: string,
 }
+
+export interface IErrorData {
+  status: number;
+  message?: string;
+}

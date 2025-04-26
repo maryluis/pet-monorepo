@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import { IUserRegistration, IUserLogin } from '@shared/types';
+import { IUserLogin, IWish } from '@shared/types';
+import { IErrorData } from '@/types';
 import URLS from '@shared/api-urls';
 import { handleError } from '@/helpers';
 
@@ -38,16 +39,16 @@ const checkToken = async (token: string) => {
     });
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
-const createUser = async (userData: IUserRegistration) => {
+const createUser = async (userData: IUserLogin) => {
   try {
     const response = await axiosInstance.post(URLS.createUser, userData);
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -59,7 +60,7 @@ const createWish = async (dataWish: { title: string, description: string }, toke
 
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -70,7 +71,7 @@ const followUser = async (followedId: string, token: string) => {
     });
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -84,7 +85,7 @@ const login = async (userData: IUserLogin) => {
 
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -93,7 +94,7 @@ const getHolidaysByCountryYear = async (year: number, countryCode: string = 'UA'
     const response = await axios.get(`${import.meta.env.VITE_DATE_URL}${year}/${countryCode}`);
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -105,7 +106,7 @@ const getProfile = async (token: string) => {
     return response.data;
 
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -118,7 +119,7 @@ const getUserByNickname = async (nickname: string, token = '') => {
     const response = await axiosInstance.get(URLS.userByNickname(nickname), { headers });
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -132,7 +133,7 @@ const getUsersByParticularSearch = async (search: string, pageNumber = 1, token 
     const response = await axiosInstance.get(URLS.usersSearch(search, pageNumber.toString()), { headers });
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
@@ -144,16 +145,16 @@ const unFollowUser = async (followedId: string, token: string) => {
     });
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 
 const getWishes = async (authorId: string, pageNumber = 1, executorId = '') => {
   try {
     const response = await axiosInstance.get(URLS.wishesList(authorId, pageNumber, executorId));
-    return response.data;
+    return response.data as { wishes: IWish[]};
   } catch (error) {
-    handleError(error);
+    handleError(error as IErrorData);
   }
 };
 

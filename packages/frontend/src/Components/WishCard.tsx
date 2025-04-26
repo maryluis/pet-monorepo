@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { Collapse } from 'react-collapse';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -9,11 +9,11 @@ import { AnchorDown } from '@/icons';
 import { IWish } from '@shared/types';
 
 interface IProps {
-  ActionComponent: React.ComponentType<{ item: IWish; refreshAction: () => void }>;
+  ActionComponent: (props: { item: IWish; refreshAction?: () => void }) => ReactNode;
   item: IWish;
-  refreshAction: () => void;
+  refreshAction?: () => void,
   spoilerMode: boolean;
-};
+}
 
 export const WishCard = (props: IProps) => {
   const { ActionComponent, item, spoilerMode } = props;
