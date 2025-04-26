@@ -75,7 +75,7 @@ export default function LoginPage() {
       <Card className="max-w-md ">
         <Title>{t('login')}</Title>
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-          <ReactFormInput
+          <ReactFormInput<IUserLogin>
             errors={errors}
             label={t('nickname')}
             name="nickname"

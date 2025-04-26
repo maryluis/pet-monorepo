@@ -61,6 +61,7 @@ export default [
     rules: {
       'react/react-in-jsx-scope': 0,
       'react/jsx-no-target-blank': 0,
+      'prefer-const': 0,
       'jsx-quotes': ['error', 'prefer-double'],
       quotes: ['error', 'single'],
       'react/jsx-tag-spacing': [

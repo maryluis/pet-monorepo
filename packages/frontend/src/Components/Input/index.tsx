@@ -89,7 +89,7 @@ export const ReactFormInput = <T extends FieldValues>(props: IReactFormInputProp
 
 interface ICheckboxInputProps {
   label?: string,
-  onChange: () => void,
+  onChange: (e: unknown) => void,
   value: boolean,
 }
 

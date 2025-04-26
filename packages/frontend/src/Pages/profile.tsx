@@ -17,7 +17,7 @@ const ProfilePage = () => {
 
   const errorsHandler = useErrors();
 
-  const token = useStore((state) => state.token);
+  const token = useStore((state) => state.token) || '';
 
   const [wishTitle, setWishTitle] = useState('');
   const handleSetWishTitle = (e: ChangeEvent<HTMLInputElement>) => setWishTitle(e.target.value);

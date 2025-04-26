@@ -12,7 +12,7 @@ import '@/i18n';
 
 const ErrorPage = lazy(() => import('@/pages/error'));
 const HomePage = lazy(() => import('@/pages/home'));
-const LoginPage = lazy(() => import('@/pages/Login'));
+const LoginPage = lazy(() => import('@/pages/login'));
 const ProfilePage = lazy(() => import('@/pages/profile'));
 const RegistrationPage = lazy(() => import('@/pages/registration'));
 const UserPage = lazy(() => import('@/pages/user'));

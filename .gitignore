@@ -6,7 +6,6 @@ packages/*/node_modules/
 .idea
 packages/frontend/node_modules/
 packages/frontend/.env
-packages/frontend/lib/
 packages/frontend/.DS_Store
 packages/.DS_Store
 packages/backend/node_modules/

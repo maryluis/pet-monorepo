@@ -2,11 +2,13 @@ import type { ReactNode, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
+type onClickT = (e: MouseEvent<HTMLButtonElement>) => void | Promise<void>;
+
 interface IProps {
   children: ReactNode | string,
   disabled?: boolean,
   loading?: boolean,
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void,
+  onClick?: onClickT,
   href?: string,
   type?: 'button' | 'link',
 }

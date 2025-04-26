@@ -16,7 +16,6 @@ import { getTokenCookie, setTokenCookie } from '@/cookies';
 import { CustomError } from '@/helpers';
 import { useErrors } from '@/hooks';
 import { useStore } from '@/zustand';
-
 import { IUserRegistration, IUserLogin } from '@shared/types';
 import { nicknameRegex, passwordRegex } from '@shared/constants';
 

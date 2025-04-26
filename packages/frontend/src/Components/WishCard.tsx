@@ -1,5 +1,4 @@
-import type { ReactNode } from 'react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { Collapse } from 'react-collapse';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';

@@ -9,7 +9,7 @@ export const setTokenCookie = (token: string) => {
   cookies.set(KEY_TOKEN, token, {
     expires: 30,
     path: '/',
-    // secure: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'Strict',
   });
 };
@@ -33,6 +33,7 @@ export const setLangCookie = (lang: langTypeT) => {
     expires: 30,
     path: '/',
     sameSite: 'Strict',
+    secure: process.env.NODE_ENV === 'production',
   });
 };
 

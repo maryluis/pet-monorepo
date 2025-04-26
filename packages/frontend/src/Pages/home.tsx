@@ -101,9 +101,17 @@ const HomePage = () => {
       <Card className="min-w-full min-h-72">
         <div className="flex flex-col w-full">
           <div className="flex justify-center">
-            <Title>{t('findOutWishes')}</Title>
+            <Title>
+              {t('findOutWishes')}
+            </Title>
           </div>
-          <Input onChange={handleChangeSearch} placeholder={t('enterPersonNickname')} />
+          <Input
+            onChange={handleChangeSearch}
+            placeholder={
+              t('enterPersonNickname')
+            }
+            value={search}
+          />
           <ResultsScrollContainer
             hasItems={!!users.length}
             noResults={noResults}

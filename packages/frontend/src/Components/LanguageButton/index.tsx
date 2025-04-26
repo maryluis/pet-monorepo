@@ -1,4 +1,6 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect,
+  useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Collapse } from 'react-collapse';
 
@@ -38,11 +40,11 @@ const LanguageButton = () => {
 
   const langOptions: Record<langTypeT, LangOption> = {
     us: {
-      value: 'us',
+      value: 'us' as langTypeT,
       img: En,
     },
     ua: {
-      value: 'ua',
+      value: 'ua' as langTypeT,
       img: Ukr,
     }
   };
@@ -52,13 +54,24 @@ const LanguageButton = () => {
 
   return (
     <div className="relative mr-3">
-      <img onClick={handleOpen} src={actualLang?.img} />
+      <img
+        onClick={handleOpen}
+        src={actualLang?.img}
+      />
       <div style={{ position: 'absolute', top: 'calc(100% + 10px)' }}>
         <Collapse isOpened={open} >
           <div>
-            {langSelectOptions.map((item) => item.value !== actualLang.value && (
-              <img key={`langOpt${item.value}`} onClick={() => changeLanguage(item.value)} src={item.img} />
-            ))}
+            {(langSelectOptions || []).map((item) => {
+              if (item.value !== actualLang.value) return (
+                <img
+                  key={`langOpt${item.value}`}
+                  onClick={() => changeLanguage(item.value)}
+                  src={item.img}
+                />
+              );
+              return null;
+            })
+            }
           </div>
         </Collapse>
       </div>

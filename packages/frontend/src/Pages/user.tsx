@@ -23,7 +23,7 @@ const UserPage = () => {
 
   const { token } = useAuth();
 
-  const { nickname } = useParams();
+  const { nickname = '' } = useParams();
   const errorsHandler = useErrors();
 
   const { data, refetch } = useQuery(

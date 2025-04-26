@@ -1,9 +1,8 @@
-name: Deploy Backend
+name: Deploy Frontend
 
 on:
   push:
     branches: [ staging ]
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -26,6 +25,6 @@ jobs:
 
       - name: Build and deploy to Railway
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_FRONTEND }}
         run: |
-          railway up --service=pet-monorepo
+          railway up --service=empowering-hope
